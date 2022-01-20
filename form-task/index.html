@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./static/css/form.css"/>
+</head>
+<body>
+    <div class="formContainer">
+        <form method="POST">
+
+            <label for="username">Username:</label><br />
+            <input type="text" id="username" placeholder="Enter Username" />
+            <br />
+
+            <label for="email">Email:</label><br />
+            <input type="email" id="email" placeholder="Enter Email Address" />
+            <br />
+
+            <label for="password">Password:</label><br />
+            <input type="password" id="password" placeholder="Enter Password" />
+            <br />
+
+            <label for="cnfPassword">Confirm Password:</label><br />
+            <input type="password" id="cnfPassword" placeholder="Enter Confirm Password" />
+            <br />
+
+            <div class="sub-container">
+                <label for="age">Age:</label><br />
+                <input type="number" id="age" placeholder="Enter Age" />
+                <br />
+            </div>
+
+            <div class="dummy-container"></div>
+            
+            <div class="sub-container">
+                <label for="gender">Gender:</label>
+                <br />
+                <input type="radio" name="gender" id="male" value="Male"/>
+                <label for="male">Male</label>       
+        
+                <input type="radio" id="female" name="gender" value="Female"/>
+                <label for="female">Female</label>
+            </div>
+
+            <br />
+            <label for="country">Country:</label>
+            <select id="country" name="country">
+                <option value="India">India</option>
+                <option value="United States">United States</option>
+                <option value="France">France</option>
+                <option value="China">China</option>
+                <option value="Spain">Spain</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Canada">Canada</option>
+                <option value="Germany">Germany</option>
+            </select>
+
+            <br />
+            <label for="programmingLang">Programming Languages:</label>
+            <br />
+            
+            <input type="checkbox" name="programmingLanguage" value="JavaScript" id="JavaScript"/>
+            <label for="JavaScript">JavaScript</label>
+            <input type="checkbox" name="programmingLanguage" value="Python" id="Python"/>
+            <label for="Python">Python</label>
+            <input type="checkbox" name="programmingLanguage" value="Java" id="Java"/>
+            <label for="Java">Java</label>
+            <input type="checkbox" name="programmingLanguage" value="C++" id="C++"/>
+            <label for="C++">C++</label>
+            <input type="checkbox" name="programmingLanguage" value="C#" id="C#"/>
+            <label for="C#">C#</label>
+            <input type="checkbox" name="programmingLanguage" value="Scala" id="Scala"/>
+            <label for="Scala">Scala</label>
+            
+            <br />
+            <label for="description">Description:</label>
+            <br />
+            <textarea id="description"></textarea>
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

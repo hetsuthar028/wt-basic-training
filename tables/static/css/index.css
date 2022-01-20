@@ -1,0 +1,21 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: small;
+}
+td, tr {
+    padding: 5px;
+    border: 1px solid;
+}
+
+th {
+    padding: 5px;
+    border: 1px solid;
+    text-align: left;
+    background-color: gainsboro;
+}
+
+table {
+    border: 1px solid;
+    table-layout: fixed;
+    width: 50%;
+}
