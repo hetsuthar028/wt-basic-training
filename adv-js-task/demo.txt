@@ -1,0 +1,2 @@
+These is the content being rendered from the demo.txt file.
+This is the external file.
