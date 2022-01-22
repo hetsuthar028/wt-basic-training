@@ -50,3 +50,57 @@ function show(str, ...values){
 }
 show`${1}${2}${3}`;
 show`Something${1}${2}${3}${4}Here`
+
+// Task - Performing Inheritance and overriding
+class A{
+    speak(){
+        console.log("Speaking...")
+    }
+}
+
+class B extends A{
+    constructor(){
+        super();
+    }
+
+    listen(){
+        console.log("Listening...")
+    }
+}
+
+let b1 = new B();
+b1.speak();
+b1.listen();
+
+// Example for Inheritance, Overriding and Calling a parent method from child
+class Person{
+    constructor(name, age, gender){
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    getDetails(){
+        console.log(`Name: ${this.name}\nAge: ${this.age}\nGender: ${this.gender}`);
+    }
+}
+
+class Employee extends Person{
+    constructor(name, age, gender, designation, salary){
+        super(name, age, gender);
+        this.designation = designation;
+        this.salary = salary;
+    }
+
+    getDetails(){
+        console.log(`Name: ${this.name}\nAge: ${this.age}\nGender: ${this.gender}\nDesignation: ${this.designation}\nSalary: ${this.salary}`);
+    }
+
+    getPersonalDetailsOnly(){
+        super.getDetails();
+    }
+}
+
+let newEmployee = new Employee("Het", 21, "Male", "SDE Intern", 5);
+newEmployee.getDetails();
+newEmployee.getPersonalDetailsOnly();
