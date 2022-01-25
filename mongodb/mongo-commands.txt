@@ -108,3 +108,127 @@ db.cars.find({
 }).pretty();
 
 
+------------------------------------------------------------------------------------
+// Query Documents
+------------------------------------------------------------------------------------
+db.inventory.insertMany([
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
+]);
+
+db.inventory.find({"status": {$in: ["A", "D"]}}).pretty();
+db.inventory.find({"status": "A", qty: {$lt: 30}}).pretty();
+db.inventory.find({$or: [{"status": "A"}, {"qty": {$lt: 30}}]}).pretty();
+db.inventory.find({"status": "A", $or: [{"qty": {$lt: 30}}, {"item": /^p/}]}).pretty();
+
+
+------------------------------------------------------------------------------------
+// Query on Embedded/Nested Documents
+------------------------------------------------------------------------------------
+
+
+// Match an Embedded/Nested Document
+------------------------------------------------------------------------------------
+db.inventory.find({"size": {h: 14, w: 21, uom: "cm"}}).pretty();
+
+
+// Query on Nested Field
+------------------------------------------------------------------------------------
+db.inventory.find({"size.uom": "in"}).pretty();
+db.inventory.find({"size.h": {$lt: 15}}).pretty();
+db.inventory.find({"size.h": {$lt: 15}, "size.uom": "in", "status": "D"}).pretty();
+
+
+// Query an Array
+------------------------------------------------------------------------------------
+db.inventory2.insertMany([
+   { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ] },
+   { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21 ] },
+   { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [ 14, 21 ] },
+   { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85, 30 ] },
+   { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
+]);
+
+db.inventory2.find({tags: ["red", "blank"]}).pretty();
+db.inventory2.find({tags: {$all: ["red", "blank"]}}).pretty();
+
+// Query an Array for an element
+------------------------------------------------------------------------------------
+db.inventory2.find({"tags": "red"}).pretty();
+db.inventory2.find({"dim_cm": {$gt: 25}}).pretty();
+
+
+// Multiple conditions for Array elements
+------------------------------------------------------------------------------------
+db.inventory2.find({"dim_cm": {$gt: 15, $lt: 20}}).pretty();
+
+
+// Query for an Array Element that Meets Multiple Criteria
+------------------------------------------------------------------------------------
+db.inventory2.find({"dim_cm": {$elemMatch:  {$gt: 22, $lt: 30}}}).pretty();
+
+
+// Query for an Element by the Array Index Positionicons
+------------------------------------------------------------------------------------
+db.inventory2.find({"dim_cm.1": {$gt: 25}}).pretty();
+
+// Query an Array by Array Lengthicons
+------------------------------------------------------------------------------------
+db.inventory2.find({"tags": {$size: 3}}).pretty();
+
+
+------------------------------------------------------------------------------------
+// Query an Array of Embedded Documents
+------------------------------------------------------------------------------------
+db.inventory3.insertMany( [
+   { item: "journal", instock: [ { warehouse: "A", qty: 5 }, { warehouse: "C", qty: 15 } ] },
+   { item: "notebook", instock: [ { warehouse: "C", qty: 5 } ] },
+   { item: "paper", instock: [ { warehouse: "A", qty: 60 }, { warehouse: "B", qty: 15 } ] },
+   { item: "planner", instock: [ { warehouse: "A", qty: 40 }, { warehouse: "B", qty: 5 } ] },
+   { item: "postcard", instock: [ { warehouse: "B", qty: 15 }, { warehouse: "C", qty: 35 } ] }
+]);
+
+
+// Query for a Document Nested in an Array
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock": {"warehouse": "A", qty: 5}}).pretty();
+
+
+// Specify a Query Condition on a Field Embedded in an Array of Documents
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock.qty": {$lte: 20}}).pretty();
+
+
+// Use the Array Index to Query for a Field in the Embedded Documenticons
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock.0.qty": {$lte: 20}}).pretty();
+
+
+// A Single Nested Document Meets Multiple Query Conditions on Nested Field
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock": {$elemMatch: {"qty": 5, "warehouse": "A"}}}).pretty();
+db.inventory3.find({"instock.qty": {$gt: 10, $lte: 20}}).pretty();
+db.inventory3.find({"instock.qty": 5, "instock.warehouse": "A"}).pretty();
+
+
+------------------------------------------------------------------------------------
+// Project Fields to Return from Query
+------------------------------------------------------------------------------------
+db.inventory4.insertMany( [
+  { item: "journal", status: "A", size: { h: 14, w: 21, uom: "cm" }, instock: [ { warehouse: "A", qty: 5 } ] },
+  { item: "notebook", status: "A",  size: { h: 8.5, w: 11, uom: "in" }, instock: [ { warehouse: "C", qty: 5 } ] },
+  { item: "paper", status: "D", size: { h: 8.5, w: 11, uom: "in" }, instock: [ { warehouse: "A", qty: 60 } ] },
+  { item: "planner", status: "D", size: { h: 22.85, w: 30, uom: "cm" }, instock: [ { warehouse: "A", qty: 40 } ] },
+  { item: "postcard", status: "A", size: { h: 10, w: 15.25, uom: "cm" }, instock: [ { warehouse: "B", qty: 15 }, { warehouse: "C", qty: 35 } ] }
+]);
+
+db.inventory4.find({status: "A"}, {item: 1, status: 1}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "_id": 0}).pretty();
+db.inventory4.find({"status": "A"}, {"status": 0, "instock": 0}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "size.uom": 1}).pretty();
+db.inventory4.find({"status": "A"}, {"size.uom": 0}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "instock.qty": 1}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "instock": {$slice: -1}}).pretty();
