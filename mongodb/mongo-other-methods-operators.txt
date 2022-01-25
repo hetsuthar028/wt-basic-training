@@ -1,0 +1,53 @@
+## distinct() method
+------------------------------------------------------------------------------------
+db.inventory4.distinct("status") -- Returns an array of the distinct status from all documents
+db.inventory4.distinct("instock.warehouse") -- Return an array of distinct warehouses subfield from instock field
+db.inventory4.distinct("item.sku", { dept: "A" }) -- returns the distinct values for the field sku, embedded in the item field, from the documents whose dept is equal to "A"
+
+
+## cursor.limit() method
+------------------------------------------------------------------------------------
+db.inventory4.find().limit(2);
+
+
+## cursor.skip() method
+------------------------------------------------------------------------------------
+db.inventory4.find().skip(2).limit(2);
+
+
+## cursor.explain() method
+------------------------------------------------------------------------------------
+- The explain() method returns a document with the query plan and, optionally, the execution statistics.
+db.inventory4.find().explain();
+
+
+## cursor.sort() method
+------------------------------------------------------------------------------------
+db.inventory4.find().sort({"items": 1});
+db.users.find({}).sort({age : -1, posts: 1}); -- sorts the documents first by the age field in descending order and then by the posts field in ascending order
+
+
+## cursor.count() method
+------------------------------------------------------------------------------------
+-- Counts the number of documents referenced by a cursor. 
+-- Append the count() method to a find() query to return the number of matching documents. 
+-- The operation does not perform the query but instead counts the results that would be returned by the query.
+db.inventory4.find({"status": "A"}).count();
+
+
+// $exists operator
+------------------------------------------------------------------------------------
+Syntax: { field: { $exists: <boolean> } }
+-- When <boolean> is true, $exists matches the documents that contain the field, including documents where the field value is null. 
+-- If <boolean> is false, the query returns only the documents that do not contain the field. [1]
+
+db.inventory.find({qty:{ $exists: true, $nin: [ 5, 15 ]}})
+
+
+// $regex operator
+------------------------------------------------------------------------------------
+{ <field>: { $regex: /pattern/, $options: '<options>' } }
+-- Provides regular expression capabilities for pattern matching strings in queries. 
+-- MongoDB uses Perl compatible regular expressions (i.e. "PCRE" ) version 8.42 with UTF-8 support.
+
+db.inventory4.find({"item": {$regex: /^p/}}).pretty();
