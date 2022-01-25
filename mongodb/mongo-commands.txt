@@ -232,3 +232,66 @@ db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "size.uom": 1}).pre
 db.inventory4.find({"status": "A"}, {"size.uom": 0}).pretty();
 db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "instock.qty": 1}).pretty();
 db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "instock": {$slice: -1}}).pretty();
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+// *****Update Document*****
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+db.inventory5.insertMany( [
+   { item: "canvas", qty: 100, size: { h: 28, w: 35.5, uom: "cm" }, status: "A" },
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "mat", qty: 85, size: { h: 27.9, w: 35.5, uom: "cm" }, status: "A" },
+   { item: "mousepad", qty: 25, size: { h: 19, w: 22.85, uom: "cm" }, status: "P" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "P" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" },
+   { item: "sketchbook", qty: 80, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "sketch pad", qty: 95, size: { h: 22.85, w: 30.5, uom: "cm" }, status: "A" }
+] );
+
+db.inventory5.updateOne({"item": "paper"}, {$set: {"size.uom": "cm", status: "P"}, $currentDate: { lastModified: true }});
+db.inventory5.updateMany({"qty": {$lt: 50}}, {$set: {"size.uom": "in", status: "P"}, $currentDate: {lastModified: true}});
+db.inventory5.replaceOne({"item": "paper"}, {"item": "paper", "instock": [{warehouse: "A", qty: 60}, {warehouse: "B", qty: 40}]});
+
+
+------------------------------------------------------------------------------------
+// Following other methods can also update the documents:
+------------------------------------------------------------------------------------
+- db.collection.findOneAndReplace()
+- db.collection.findOneAndUpdate()
+- db.collection.findAndModify()
+- db.collection.bulkWrite()
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+// ****Delete Documnents****
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+// Delete All Documents that Match a Condition
+------------------------------------------------------------------------------------
+db.inventory6.insertMany( [
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "P" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" },
+] );
+
+db.inventory6.deleteMany({})
+db.inventory6.deleteMany({"status": "A"})
+
+
+// Delete Only One Document that Matches a Condition
+------------------------------------------------------------------------------------
+db.inventory6.deleteOne({"status": "D"});
+
+
+// Delete a single document or all documents that matches the Query
+------------------------------------------------------------------------------------
+db.inventory6.remove({}); -- Removes all documents
+db.inventory6.remove({'status': "A"}) -- Removes specific document(s)
