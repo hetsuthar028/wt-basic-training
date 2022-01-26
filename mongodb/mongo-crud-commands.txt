@@ -1,0 +1,297 @@
+// Insert a single document
+------------------------------------------------------------------------------------
+db.cars.insert({name: "Agera", manufacturer: "Koenigsegg", topSpeed: 439, speedUnit: "km/h", price: "12 Cr. INR", hp: 947});
+
+
+// Insert multiple documents
+------------------------------------------------------------------------------------
+db.cars.insertMany([{name: "Divo", manufacturer: "Bugatti", topSpeed: 380, speedUnit: "km/h", price: "41 Cr. INR", hp: 1001}, {name: "LaFerrari F150", manufacturer: "Ferrari", topSpeed: 350, speedUnit: "km/h", price: "7.50 Cr. INR", hp: 789}]);
+
+
+// Find all documents
+------------------------------------------------------------------------------------
+db.cars.find().pretty();
+
+
+// Perform Projection on find results | Fetch all fields
+------------------------------------------------------------------------------------
+db.cars.find({manufacturer: "Bugatti"}).pretty();
+
+
+// Perform Projection on find results | Fetch limited fields
+------------------------------------------------------------------------------------
+db.cars.find({manufacturer: "Bugatti"}, {hp: 1, name: 1, _id: 0}).pretty();
+
+
+// AND Condition in find
+------------------------------------------------------------------------------------
+db.cars.find({manufacturer: "Bugatti", name: "Divo"}).pretty();
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+*****Query and Projection Operators*****
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+*****Comparision*****
+------------------------------------------------------------------------------------
+
+
+// $gt (Greater than) | $gte (Greater than or equal to)
+------------------------------------------------------------------------------------
+db.cars.find({"hp": {$gt: 900}}).pretty();
+
+
+// $lt (Less than) | $lte (Less than or equal to)
+------------------------------------------------------------------------------------
+db.cars.find({"hp": {$lt: 900}}).pretty();
+
+
+// $eq (Equals to)
+------------------------------------------------------------------------------------
+db.cars.find({"manufacturer": {$eq: "Koenigsegg"}}).pretty();
+
+
+// $in (Matches any of the value specified in array)
+------------------------------------------------------------------------------------
+db.cars.find({"manufacturer" : {$in: ["Ferrari", "Volkswagen"]}}).pretty();
+
+
+$ne (Not equal to)
+------------------------------------------------------------------------------------
+db.cars.find({"hp": {$ne: 1001}}).pretty();
+
+
+$nin (Not in specified values from array)
+------------------------------------------------------------------------------------
+db.cars.find({"manufacturer": {$nin: ["Ferrari" , "Bugatti"]}}).pretty();
+
+
+------------------------------------------------------------------------------------
+****Logical****
+------------------------------------------------------------------------------------
+
+
+// $and Operator (AND)
+------------------------------------------------------------------------------------
+db.cars.find({$and: [
+    {"manufacturer": {$eq: "Bugatti"}},
+    {"hp": {$gt: 1000}}
+]}).pretty();
+
+
+// $or Operator (OR)
+------------------------------------------------------------------------------------
+db.cars.find({$or: [
+        {"manufacturer": {$eq: "Bugatti"}},
+        {"hp": {$gt: 900}},
+    ]
+}).pretty();
+
+
+// $nor Operator (NOR)
+------------------------------------------------------------------------------------
+db.cars.find({
+    $nor: [
+        {"manufacturer": "mercedez"},
+        {"hp": {$lte: 400}}
+    ]
+}).pretty();
+
+
+// $not Operator (NOT)
+------------------------------------------------------------------------------------
+db.cars.find({
+    hp: {$not: {$gt: 800}}
+}).pretty();
+
+
+------------------------------------------------------------------------------------
+// Query Documents
+------------------------------------------------------------------------------------
+db.inventory.insertMany([
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
+]);
+
+db.inventory.find({"status": {$in: ["A", "D"]}}).pretty();
+db.inventory.find({"status": "A", qty: {$lt: 30}}).pretty();
+db.inventory.find({$or: [{"status": "A"}, {"qty": {$lt: 30}}]}).pretty();
+db.inventory.find({"status": "A", $or: [{"qty": {$lt: 30}}, {"item": /^p/}]}).pretty();
+
+
+------------------------------------------------------------------------------------
+// Query on Embedded/Nested Documents
+------------------------------------------------------------------------------------
+
+
+// Match an Embedded/Nested Document
+------------------------------------------------------------------------------------
+db.inventory.find({"size": {h: 14, w: 21, uom: "cm"}}).pretty();
+
+
+// Query on Nested Field
+------------------------------------------------------------------------------------
+db.inventory.find({"size.uom": "in"}).pretty();
+db.inventory.find({"size.h": {$lt: 15}}).pretty();
+db.inventory.find({"size.h": {$lt: 15}, "size.uom": "in", "status": "D"}).pretty();
+
+
+// Query an Array
+------------------------------------------------------------------------------------
+db.inventory2.insertMany([
+   { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ] },
+   { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21 ] },
+   { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [ 14, 21 ] },
+   { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85, 30 ] },
+   { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
+]);
+
+db.inventory2.find({tags: ["red", "blank"]}).pretty();
+db.inventory2.find({tags: {$all: ["red", "blank"]}}).pretty();
+
+// Query an Array for an element
+------------------------------------------------------------------------------------
+db.inventory2.find({"tags": "red"}).pretty();
+db.inventory2.find({"dim_cm": {$gt: 25}}).pretty();
+
+
+// Multiple conditions for Array elements
+------------------------------------------------------------------------------------
+db.inventory2.find({"dim_cm": {$gt: 15, $lt: 20}}).pretty();
+
+
+// Query for an Array Element that Meets Multiple Criteria
+------------------------------------------------------------------------------------
+db.inventory2.find({"dim_cm": {$elemMatch:  {$gt: 22, $lt: 30}}}).pretty();
+
+
+// Query for an Element by the Array Index Positionicons
+------------------------------------------------------------------------------------
+db.inventory2.find({"dim_cm.1": {$gt: 25}}).pretty();
+
+// Query an Array by Array Lengthicons
+------------------------------------------------------------------------------------
+db.inventory2.find({"tags": {$size: 3}}).pretty();
+
+
+------------------------------------------------------------------------------------
+// Query an Array of Embedded Documents
+------------------------------------------------------------------------------------
+db.inventory3.insertMany( [
+   { item: "journal", instock: [ { warehouse: "A", qty: 5 }, { warehouse: "C", qty: 15 } ] },
+   { item: "notebook", instock: [ { warehouse: "C", qty: 5 } ] },
+   { item: "paper", instock: [ { warehouse: "A", qty: 60 }, { warehouse: "B", qty: 15 } ] },
+   { item: "planner", instock: [ { warehouse: "A", qty: 40 }, { warehouse: "B", qty: 5 } ] },
+   { item: "postcard", instock: [ { warehouse: "B", qty: 15 }, { warehouse: "C", qty: 35 } ] }
+]);
+
+
+// Query for a Document Nested in an Array
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock": {"warehouse": "A", qty: 5}}).pretty();
+
+
+// Specify a Query Condition on a Field Embedded in an Array of Documents
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock.qty": {$lte: 20}}).pretty();
+
+
+// Use the Array Index to Query for a Field in the Embedded Documenticons
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock.0.qty": {$lte: 20}}).pretty();
+
+
+// A Single Nested Document Meets Multiple Query Conditions on Nested Field
+------------------------------------------------------------------------------------
+db.inventory3.find({"instock": {$elemMatch: {"qty": 5, "warehouse": "A"}}}).pretty();
+db.inventory3.find({"instock.qty": {$gt: 10, $lte: 20}}).pretty();
+db.inventory3.find({"instock.qty": 5, "instock.warehouse": "A"}).pretty();
+
+
+------------------------------------------------------------------------------------
+// Project Fields to Return from Query
+------------------------------------------------------------------------------------
+db.inventory4.insertMany( [
+  { item: "journal", status: "A", size: { h: 14, w: 21, uom: "cm" }, instock: [ { warehouse: "A", qty: 5 } ] },
+  { item: "notebook", status: "A",  size: { h: 8.5, w: 11, uom: "in" }, instock: [ { warehouse: "C", qty: 5 } ] },
+  { item: "paper", status: "D", size: { h: 8.5, w: 11, uom: "in" }, instock: [ { warehouse: "A", qty: 60 } ] },
+  { item: "planner", status: "D", size: { h: 22.85, w: 30, uom: "cm" }, instock: [ { warehouse: "A", qty: 40 } ] },
+  { item: "postcard", status: "A", size: { h: 10, w: 15.25, uom: "cm" }, instock: [ { warehouse: "B", qty: 15 }, { warehouse: "C", qty: 35 } ] }
+]);
+
+db.inventory4.find({status: "A"}, {item: 1, status: 1}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "_id": 0}).pretty();
+db.inventory4.find({"status": "A"}, {"status": 0, "instock": 0}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "size.uom": 1}).pretty();
+db.inventory4.find({"status": "A"}, {"size.uom": 0}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "instock.qty": 1}).pretty();
+db.inventory4.find({"status": "A"}, {"item": 1, "status": 1, "instock": {$slice: -1}}).pretty();
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+// *****Update Document*****
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+db.inventory5.insertMany( [
+   { item: "canvas", qty: 100, size: { h: 28, w: 35.5, uom: "cm" }, status: "A" },
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "mat", qty: 85, size: { h: 27.9, w: 35.5, uom: "cm" }, status: "A" },
+   { item: "mousepad", qty: 25, size: { h: 19, w: 22.85, uom: "cm" }, status: "P" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "P" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" },
+   { item: "sketchbook", qty: 80, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "sketch pad", qty: 95, size: { h: 22.85, w: 30.5, uom: "cm" }, status: "A" }
+] );
+
+db.inventory5.updateOne({"item": "paper"}, {$set: {"size.uom": "cm", status: "P"}, $currentDate: { lastModified: true }});
+db.inventory5.updateMany({"qty": {$lt: 50}}, {$set: {"size.uom": "in", status: "P"}, $currentDate: {lastModified: true}});
+db.inventory5.replaceOne({"item": "paper"}, {"item": "paper", "instock": [{warehouse: "A", qty: 60}, {warehouse: "B", qty: 40}]});
+
+
+------------------------------------------------------------------------------------
+// Following other methods can also update the documents:
+------------------------------------------------------------------------------------
+- db.collection.findOneAndReplace()
+- db.collection.findOneAndUpdate()
+- db.collection.findAndModify()
+- db.collection.bulkWrite()
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+// ****Delete Documnents****
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+// Delete All Documents that Match a Condition
+------------------------------------------------------------------------------------
+db.inventory6.insertMany( [
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "P" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" },
+] );
+
+db.inventory6.deleteMany({})
+db.inventory6.deleteMany({"status": "A"})
+
+
+// Delete Only One Document that Matches a Condition
+------------------------------------------------------------------------------------
+db.inventory6.deleteOne({"status": "D"});
+
+
+// Delete a single document or all documents that matches the Query
+------------------------------------------------------------------------------------
+db.inventory6.remove({}); -- Removes all documents
+db.inventory6.remove({'status': "A"}) -- Removes specific document(s)
