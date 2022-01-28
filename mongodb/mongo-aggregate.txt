@@ -1,0 +1,98 @@
+// Sample Documents
+------------------------------------------------------------------------------------
+db.orders.insertMany( [
+   { _id: 0, productName: "Steel beam", status: "new", quantity: 10 },
+   { _id: 1, productName: "Steel beam", status: "urgent", quantity: 20 },
+   { _id: 2, productName: "Steel beam", status: "urgent", quantity: 30 },
+   { _id: 3, productName: "Iron rod", status: "new", quantity: 15 },
+   { _id: 4, productName: "Iron rod", status: "urgent", quantity: 50 },
+   { _id: 5, productName: "Iron rod", status: "urgent", quantity: 10 }
+] )
+
+
+------------------------------------------------------------------------------------
+## Aggregate Pipeline
+------------------------------------------------------------------------------------
+db.orders.aggregate([{$match: {"status": "urgent"}}, {$group: {_id: "$productName", sumQuantity: {$sum: "$quantity"}}}])
+
+
+// Sample Documents
+------------------------------------------------------------------------------------
+db.scores.insertMany([
+    { "_id" : 1, "subject" : "History", "score" : 88 },
+    { "_id" : 2, "subject" : "History", "score" : 92 },
+    { "_id" : 3, "subject" : "History", "score" : 97 },
+    { "_id" : 4, "subject" : "History", "score" : 71 },
+    { "_id" : 5, "subject" : "History", "score" : 79 },
+    { "_id" : 6, "subject" : "History", "score" : 83 }
+]);
+
+
+------------------------------------------------------------------------------------
+## $count
+------------------------------------------------------------------------------------
+- Passes a document to the next stage that contains a count of the number of documents input to the stage.
+- { $count: <string> }
+- <string> must be a non-empty string, must not start with $ and must not contain the . character.
+
+db.scores.aggregate([{$match: {score: {$gt: 80}}}, {$count: "passing_scores"}])
+
+
+// Sample Documents
+------------------------------------------------------------------------------------
+db.sales.insertMany([
+  { "_id" : 1, "item" : "abc", "price" : NumberDecimal("10"), "quantity" : NumberInt("2"), "date" : ISODate("2014-03-01T08:00:00Z") },
+  { "_id" : 2, "item" : "jkl", "price" : NumberDecimal("20"), "quantity" : NumberInt("1"), "date" : ISODate("2014-03-01T09:00:00Z") },
+  { "_id" : 3, "item" : "xyz", "price" : NumberDecimal("5"), "quantity" : NumberInt( "10"), "date" : ISODate("2014-03-15T09:00:00Z") },
+  { "_id" : 4, "item" : "xyz", "price" : NumberDecimal("5"), "quantity" :  NumberInt("20") , "date" : ISODate("2014-04-04T11:21:39.736Z") },
+  { "_id" : 5, "item" : "abc", "price" : NumberDecimal("10"), "quantity" : NumberInt("10") , "date" : ISODate("2014-04-04T21:23:13.331Z") },
+  { "_id" : 6, "item" : "def", "price" : NumberDecimal("7.5"), "quantity": NumberInt("5" ) , "date" : ISODate("2015-06-04T05:08:13Z") },
+  { "_id" : 7, "item" : "def", "price" : NumberDecimal("7.5"), "quantity": NumberInt("10") , "date" : ISODate("2015-09-10T08:43:00Z") },
+  { "_id" : 8, "item" : "abc", "price" : NumberDecimal("10"), "quantity" : NumberInt("5" ) , "date" : ISODate("2016-02-06T20:20:13Z") },
+])
+
+
+------------------------------------------------------------------------------------
+## $group
+------------------------------------------------------------------------------------
+- Groups input documents by specified _id expression and for each distinct grouping, outputs a document.
+- The output documents can also contain computed fields that hodl the values of some accumulator expression.
+
+    ### Count the Number of Documents in a Collection
+    -------------------------------------------------
+    db.sales.aggregate([{$group: {_id: null, count: {$count: {}}}}]);
+
+    ### Retrieve Distinct Values
+    -------------------------------------------------
+    db.sales.aggregate([{$group: {_id: "$item"}}]);
+
+    ### Group by Item Having
+    -------------------------------------------------
+    db.sales.aggregate([{$group: {_id: "$item", totalSaleAmount: {$sum: {$multiply: ["$price", "$quantity"]}}}}, {$matchL {"totalSaleAmount": {$gte: 100}}}]);
+
+
+------------------------------------------------------------------------------------
+## $match
+------------------------------------------------------------------------------------
+- Filters the documents to pass only the documents that match the specified condition(s) to the next pipeline stage.
+
+db.sales.aggregate([{$match: {"price": {$gte: 7}, "quantity": {$gte: 5}}}]);
+
+
+// Sample Documents
+------------------------------------------------------------------------------------
+db.restaurants.insertMany( [
+   { "_id" : 1, "name" : "Central Park Cafe", "borough" : "Manhattan"},
+   { "_id" : 2, "name" : "Rock A Feller Bar and Grill", "borough" : "Queens"},
+   { "_id" : 3, "name" : "Empire State Pub", "borough" : "Brooklyn"},
+   { "_id" : 4, "name" : "Stan's Pizzaria", "borough" : "Manhattan"},
+   { "_id" : 5, "name" : "Jane's Deli", "borough" : "Brooklyn"},
+] );
+
+
+------------------------------------------------------------------------------------
+## $sort
+------------------------------------------------------------------------------------
+- Sorts all input documents and returns them to the pipeline in sorted order.
+
+db.restaurants.aggregate([{$sort: {borough: 1}}]);
