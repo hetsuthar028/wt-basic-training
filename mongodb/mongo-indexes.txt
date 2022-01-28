@@ -1,0 +1,46 @@
+// Sample Document
+------------------------------------------------------------------------------------
+{
+  "_id": ObjectId("570c04a4ad233577f97dc459"),
+  "score": 1034,
+  "location": { state: "NY", city: "New York" }
+}
+
+------------------------------------------------------------------------------------
+## Single Field Index
+------------------------------------------------------------------------------------
+- By default applied on _id Field
+- Allows indexing on ascending/descending order
+
+    ### Create an Ascending Index on a single Field
+    -----------------------------------------------
+    db.records.createIndex({"score": 1});
+
+    ### Create an Index on an Embedded Field
+    -----------------------------------------------
+    db.records.createIndex({"location.state": 1});
+
+    ### Create an Index on an Embedded Document (whole)
+    -----------------------------------------------
+    db.records.createIndex({"location": 1});
+
+
+// Sample Document
+------------------------------------------------------------------------------------
+{
+ "_id": ObjectId(...),
+ "item": "Banana",
+ "category": ["food", "produce", "grocery"],
+ "location": "4th Street Store",
+ "stock": 4,
+ "type": "cases"
+}
+
+------------------------------------------------------------------------------------
+## Compound Indexes
+------------------------------------------------------------------------------------
+- A limit of 32 fields for any compound index
+- supports queries that matches multiple fields
+- Sort order can matter in determining whether the index can support a sort operation.
+
+db.events.createIndex({"item": 1, "stock": 1});
