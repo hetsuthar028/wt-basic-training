@@ -1,0 +1,54 @@
+------------------------------------------------------------------------------------
+Create Collection for Students having id, name, marks, address, gender.
+------------------------------------------------------------------------------------
+
+Perform:
+-	Find out number of students for each mark.
+-	Find out student count for each city.
+-	Find out sum of all students marks.
+-	Find out the student count who got greater than 60 marks.
+------------------------------------------------------------------------------------
+
+
+# Creating the DB, Collection, Documents
+------------------------------------------------------------------------------------
+use mongo-training-tasks
+db.createCollection("students");
+db.students.insertMany([
+    {student_id: 101, name: "Ashwin", marks: 90, address: "Ahmedabad", gender: "Male"},
+    {student_id: 102, name: "Bharat", marks: 87, address: "Mumbai", gender: "Male"},
+    {student_id: 103, name: "Saanvi", marks: 94, address: "Ahmedabad", gender: "Female"},
+    {student_id: 104, name: "Aditi", marks: 76, address: "Gandhinagar", gender: "Female"},
+    {student_id: 105, name: "Jay", marks: 88, address: "Mehsana", gender: "Male"},
+    {student_id: 106, name: "Divya", marks: 90, address: "Mumbai", gender: "Female"},
+    {student_id: 107, name: "Riddhi", marks: 94, address: "Mumbai", gender: "Female"},
+    {student_id: 108, name: "Harsh", marks: 76, address: "Pune", gender: "Male"},
+]);
+
+
+------------------------------------------------------------------------------------
+# Find out number of students for each mark.
+------------------------------------------------------------------------------------
+db.students.aggregate([{$group: {_id: "$marks", totalStudents: {$sum: 1}}}]);
+db.students.aggregate([{$group: {_id: "$marks", totalStudents: {$sum: 1}}}, {$sort: {_id: 1}}]);
+db.students.aggregate([{$match: {"marks": {$gt: 85}}}, {$group: {_id: "$marks", totalStudents: {$sum: 1}}}, {$sort: {_id: -1}}]);
+
+
+------------------------------------------------------------------------------------
+# Find out student count for each city.
+------------------------------------------------------------------------------------
+db.students.aggregate([{$group: {_id: "$address", totalStudents: {$sum: 1}}}]);
+db.students.aggregate([{$group: {_id: "$address", totalStudents: {$sum: 1}}}, {$sort: {_id: 1}}]);
+
+
+------------------------------------------------------------------------------------
+# Find out sum of all students marks.
+------------------------------------------------------------------------------------
+db.students.aggregate([{$group: {_id: null, totalStudents: {$sum: "$marks"}}}]);
+
+
+------------------------------------------------------------------------------------
+# Find out the student count who got greater than 60 marks.
+------------------------------------------------------------------------------------
+db.students.aggregate([{$match: {"marks": {$gt: 60}}}, {$count: "Total-Students-Above-60"}]);
+db.students.aggregate([{$match: {"marks": {$gt: 60}}}, {$group: {_id: null, totalStudents: {$sum: 1}}}]);
