@@ -1,0 +1,46 @@
+Replication in MongoDB
+---------------------------------------------------
+
+1. Create a Folder "data1" in any drive. (For eg. C:\data1)
+
+2. Create the following folders inside of "data1":
+    i. config
+    ii. db
+    iii. log
+
+3. Create config.cfg inside config folder and write this:
+    dbpath=C:\data1\db\path
+    logpath=C:\data1\log\mongod.log\
+    port=27020
+
+4. Create mongod.log file in the log folder
+
+5. Stop all MongoDB running servers (Stop services from services.msc)
+
+6. Open CMD in Administrator and write following command:
+    mongod --dbpath "C:\Program Files\MongoDB\Server\5.0\data" --logpath "C:\Program Files\MongoDB\Server\5.0\log" --port 27017 --storageEngine=wiredTiger --journal --replSet myrepl
+
+7. Start Mongo Client in different CMD
+    show dbs -- This gives an error
+
+8. Perform following command in Client's CMD
+    rsconf={_id: "myrepl", members:[{_id: 0, host: "localhost:27017"}]}
+    rs.initiate(rsconf)
+
+# Here we will be inside the Secondary client
+# To go into the primary, press Enter
+
+9. show dbs
+
+10. Open new CMD for Secondary server
+    mongod --dbpath "C:\data1\db" --logpath "C:\data1\log\mongod.log" --port 27020 --storageEngine=wiredTiger --journal --replSet myrepl
+
+11. Inside the Previous Primary CMD write following command:
+    rs.add("localhost:27020")
+    rs.status()
+
+12. Create new CMD for Secondary client
+    mongod --port 27020
+    show dbs (This gives an error)
+    rs.slaveOk()
+    show dbs
