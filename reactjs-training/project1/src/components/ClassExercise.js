@@ -117,6 +117,7 @@ class Classexercise extends Component {
 
     render() {
         return (
+            
             <div>
                 <h3 className="p-3">
                     Client Status: {this.state.clientStatus}{" "}
