@@ -28,8 +28,8 @@ class ClassComp extends React.Component {
     render(){
         return(
             <div>
-                Hey there! - {this.state.counter}
-                <button onClick={this.handleClick}>Click</button>
+                Counter value - {this.state.counter}
+                <button onClick={this.handleClick}>Count</button>
                 <div>
                     <table border="1" style={{tableLayout: 'fixed'}} cellSpacing="0">
                         <tbody>

@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <User userId={userId} />
+      {/* <User userId={userId} />
       <hr />
 
       <UserDetails userId={userId} />
@@ -18,7 +18,7 @@ function App() {
 
       <ClassComp />
 
-      <hr />
+      <hr /> */}
       <Classexercise />
     </div>
   );
