@@ -47,6 +47,8 @@ class Classexercise extends Component {
                 address: "",
                 status: "",
             },
+            showErrorMessage: false,
+            showSuccessMessage: false,
         };
     }
 
@@ -100,19 +102,58 @@ class Classexercise extends Component {
         });
     }
 
+    // Returns a promise
+    // @resolve -> if all fields are non-empty
+    // @reject -> if any of the field is empty
+    validateNewClient(){
+        return new Promise((resolve, reject) => {
+            let {id, name, address, status} = this.state.newClient;
+            id = id.trim();
+            name = name.trim();
+            address = address.trim();
+            status = status.trim();
+
+            if(id && name && address && status){
+                if(id !='' && name !='' && address !='' && status !=''){
+                    resolve(true)
+                }
+            }
+            else {
+                reject(false);
+            }
+        })
+    }
+
+    // handles form submit
     handleFormSubmit(e) {
         e.preventDefault();
         
-        let {clients} = this.state;
-        clients.push(this.state.newClient);
-        this.setState({clients});
-        let newClient = {
-            id: '',
-            name: '',
-            address: '',
-            status: '',
-        }
-        this.setState({newClient});
+        // Calling the field validation method
+        this.validateNewClient().then((result) => {
+            let {clients} = this.state;
+            clients.push(this.state.newClient);
+
+            let newClient = {
+                id: '',
+                name: '',
+                address: '',
+                status: '',
+            }
+
+            this.setState({clients, newClient, showSuccessMessage: true});
+
+            let interval = setTimeout(() => {
+                this.setState({showSuccessMessage: false});
+            }, 3000);
+            
+        }).catch((err) => {
+            this.setState({showErrorMessage: true});
+
+            let interval = setTimeout(() => {
+                this.setState({showErrorMessage: false});
+            }, 3000);
+        })
+        
     }
 
     render() {
@@ -138,6 +179,8 @@ class Classexercise extends Component {
                                     name="id"
                                     onChange={(e) => this.handleInputChange(e)}
                                     value={this.state.newClient.id}
+                                    placeholder="Enter your Id"
+                                    required
                                 />
 
                                 <label htmlFor="client-name" className="my-1">
@@ -150,6 +193,8 @@ class Classexercise extends Component {
                                     name="name"
                                     onChange={(e) => this.handleInputChange(e)}
                                     value={this.state.newClient.name}
+                                    placeholder="Enter your name"
+                                    required
                                 />
 
                                 <label
@@ -165,6 +210,8 @@ class Classexercise extends Component {
                                     name="address"
                                     onChange={(e) => this.handleInputChange(e)}
                                     value={this.state.newClient.address}
+                                    placeholder="Enter your address"
+                                    required
                                 />
 
                                 <label htmlFor="client-status" className="my-1">
@@ -177,6 +224,8 @@ class Classexercise extends Component {
                                     name="status"
                                     onChange={(e) => this.handleInputChange(e)}
                                     value={this.state.newClient.status}
+                                    placeholder="Eg. active or disabled"
+                                    required
                                 />
 
                                 <button className="btn btn-success my-3" type="submit">
@@ -184,6 +233,19 @@ class Classexercise extends Component {
                                 </button>
                             </div>
                         </form>
+
+                        {/* Error message section */}
+                        {this.state.showErrorMessage ? (
+                            <div className="alert alert-warning">Please check the inputs and try again!</div>
+                        ): null}
+
+                        {/* Success message section */}
+                        {
+                            this.state.showSuccessMessage ? (
+                                <div className="alert alert-success">Client added Successfully!</div>
+                            ): null
+                        }
+                        
                     </div>
 
                     <div className="col-md-8 py-2 px-5">
