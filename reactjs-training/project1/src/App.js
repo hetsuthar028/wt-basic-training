@@ -8,7 +8,6 @@ import Inputs from "./components/Inputs";
 import Employee from "./components/Day4Task/Employee";
 
 function App() {
-    const userId = "18012021083";
 
     return (
         <div className="App">

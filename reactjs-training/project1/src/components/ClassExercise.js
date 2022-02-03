@@ -114,7 +114,7 @@ class Classexercise extends Component {
             status = status.trim();
 
             if(id && name && address && status){
-                if(id !='' && name !='' && address !='' && status !=''){
+                if(id !=='' && name !=='' && address !=='' && status !==''){
                     resolve(true)
                 }
             }
@@ -142,14 +142,14 @@ class Classexercise extends Component {
 
             this.setState({clients, newClient, showSuccessMessage: true});
 
-            let interval = setTimeout(() => {
+            setTimeout(() => {
                 this.setState({showSuccessMessage: false});
             }, 3000);
             
         }).catch((err) => {
             this.setState({showErrorMessage: true});
 
-            let interval = setTimeout(() => {
+            setTimeout(() => {
                 this.setState({showErrorMessage: false});
             }, 3000);
         })
