@@ -27,6 +27,7 @@ class Inputs extends Component {
                             placeholder='Eg. hetsuthar028'
                             className='form-control'
                         />
+                        {this.state.inputData ? (<h5 className='m-4'>Welcome <span className='text-primary'>@{this.state.inputData}</span></h5>) : null}
                     </div>
                 </form>
             </div>

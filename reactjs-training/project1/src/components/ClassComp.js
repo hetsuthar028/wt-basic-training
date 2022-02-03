@@ -29,7 +29,7 @@ class ClassComp extends React.Component {
         return(
             <div>
                 Counter value - {this.state.counter}
-                <button onClick={this.handleClick}>Count</button>
+                <button className='btn btn-primary mx-2 my-2' onClick={this.handleClick}>Count</button>
                 <div>
                     <table border="1" style={{tableLayout: 'fixed'}} cellSpacing="0">
                         <tbody>
