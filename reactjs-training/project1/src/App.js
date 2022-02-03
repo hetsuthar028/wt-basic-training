@@ -3,6 +3,9 @@ import User from './components/User';
 import UserDetails from './components/UserDetails';
 import ClassComp from './components/ClassComp';
 import Classexercise from './components/ClassExercise';
+import Counter from './components/Counter';
+import Checkboxes from './components/Checkboxes';
+import Inputs from './components/Inputs';
 
 function App() {
 
@@ -20,6 +23,20 @@ function App() {
 
       <hr /> */}
       <Classexercise />
+      
+      <hr />
+      <div className='row'>
+        <div className='col-md-4'>
+          <Counter />
+        </div>
+        <div className='col-md-4'>
+          <Checkboxes />
+        </div>
+        <div className='col-md-4'>
+          <Inputs />
+        </div>
+
+      </div>
     </div>
   );
 }
