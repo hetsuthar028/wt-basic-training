@@ -6,12 +6,15 @@ import Counter from "./components/Counter";
 import Checkboxes from "./components/Checkboxes";
 import Inputs from "./components/Inputs";
 import Employee from "./components/Day4Task/Employee";
+import ClassCompLifeCycle from "./components/Day5/ClassCompLifeCycle";
+import Formassignment from "./components/Day5/FormAssignment";
+import Gridassignment from "./components/Day5/GridAssignment";
 
 function App() {
 
     return (
         <div className="App">
-            <ClassComp />
+            {/* <ClassComp />
 
             <hr />
             <Classexercise />
@@ -38,7 +41,14 @@ function App() {
                   <h3 className="my-3">Day 4 | <code>Props</code> task</h3>
                     <User />
                 </div>
-            </div>
+            </div> */}
+
+            {/* <ClassCompLifeCycle /> */}
+
+            <Formassignment />
+            
+            <hr />
+            <Gridassignment />
         </div>
     );
 }
