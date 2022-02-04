@@ -18,6 +18,8 @@ class Gridassignment extends Component {
             },
 
             showMessage: 0,
+            showDeleteWarning: false,
+            currentSelect: undefined,
         };
     }
 
@@ -53,9 +55,9 @@ class Gridassignment extends Component {
 
     validateInputs = () => {
         let { empId, empName, salary } = this.state.newEmployee;
-        empId = empId.trim();
+        empId = empId.toString().trim();
         empName = empName.trim();
-        salary = salary.trim();
+        salary = salary.toString().trim();
         return new Promise((resolve, reject) => {
             if (empId !== "" && empName !== "" && salary !== "") {
                 resolve(true);
@@ -71,7 +73,15 @@ class Gridassignment extends Component {
         this.validateInputs()
             .then((result) => {
                 let { newEmployee, employees } = this.state;
-                employees.push(newEmployee);
+                
+                let findExistingEmployee = employees.findIndex((employee) => employee.empId === newEmployee.empId)
+
+                if(findExistingEmployee !== -1){
+                    employees[findExistingEmployee] = newEmployee;
+                } else {
+                    employees.push(newEmployee)
+                }
+                
                 newEmployee = {
                     empId: "",
                     empName: "",
@@ -89,8 +99,32 @@ class Gridassignment extends Component {
         }, 3000);
     };
 
+    handleDeleteYes = () => {
+        let { employees, currentSelect } = this.state;
+        employees.splice(currentSelect, 1);
+        this.setState({ employees, showDeleteWarning: false });
+    };
+
+    handleDeleteNo = () => {
+        this.setState({showDeleteWarning: false, currentSelect: undefined});
+    };
+
+    handleDeleteRequest = (idx) => {
+        this.setState({ showDeleteWarning: true, currentSelect: idx });
+    };
+
+    handleUpdate = (idx) => {
+        let { empId, empName, salary }= this.state.employees[idx];
+        let newEmployee = {
+            empId,
+            empName,
+            salary
+        }
+        this.setState({newEmployee});
+    }
+
     render() {
-        let { employees, newEmployee, showMessage } = this.state;
+        let { employees, newEmployee, showMessage, showDeleteWarning } = this.state;
         return (
             <div>
                 <h3>Employees Details</h3>
@@ -160,6 +194,27 @@ class Gridassignment extends Component {
                         </form>
                     </div>
                     <div className="col-md-8 m-autos">
+                        {showDeleteWarning ? (
+                            <div>
+                                <h5 className="text-danger">
+                                    Are you sure you want to delete this
+                                    Employee?
+                                </h5>
+                                <button
+                                    className="btn btn-info m-2"
+                                    onClick={() => this.handleDeleteYes()}
+                                >
+                                    Yes
+                                </button>
+                                <button
+                                    className="btn btn-info m-2"
+                                    onClick={() => this.handleDeleteNo()}
+                                >
+                                    No
+                                </button>
+                            </div>
+                        ) : null}
+
                         <table>
                             <tbody>
                                 <tr>
@@ -167,19 +222,37 @@ class Gridassignment extends Component {
                                     <th>Name</th>
                                     <th>Salary</th>
                                     <th>Grade</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
                                 </tr>
                                 {employees.map((employee, idx) => (
-                                    <tr
-                                        key={idx}
-                                        className={this.getBackground(
-                                            employee.salary
-                                        )}
-                                    >
+                                    <tr key={idx}>
                                         <td>{employee.empId}</td>
                                         <td>{employee.empName}</td>
                                         <td>{employee.salary}</td>
-                                        <td>
+                                        <td
+                                            className={this.getBackground(
+                                                employee.salary
+                                            )}
+                                        >
                                             {this.getGrade(employee.salary)}
+                                        </td>
+                                        <td>
+                                            <button className="btn btn-info" onClick={() => this.handleUpdate(idx)}>
+                                                Update
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={() =>
+                                                    this.handleDeleteRequest(
+                                                        idx
+                                                    )
+                                                }
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
