@@ -9,6 +9,7 @@ import Employee from "./components/Day4Task/Employee";
 import ClassCompLifeCycle from "./components/Day5/ClassCompLifeCycle";
 import Formassignment from "./components/Day5/FormAssignment";
 import Gridassignment from "./components/Day5/GridAssignment";
+import Gridfiltering from "./components/Day5/GridFiltering";
 
 function App() {
 
@@ -45,6 +46,9 @@ function App() {
 
             {/* <ClassCompLifeCycle /> */}
 
+            <Gridfiltering />
+
+            <hr />
             <Formassignment />
             
             <hr />
