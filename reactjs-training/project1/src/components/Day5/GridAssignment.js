@@ -12,9 +12,9 @@ class Gridassignment extends Component {
             ],
 
             newEmployee: {
-                empId: '',
-                empName: '',
-                salary: '',
+                empId: "",
+                empName: "",
+                salary: "",
             },
 
             showMessage: 0,
@@ -31,52 +31,63 @@ class Gridassignment extends Component {
             : "bg-warning";
     };
 
+    getGrade = (salary) => {
+        return salary >= 200000
+            ? "A"
+            : salary >= 100000
+            ? "B"
+            : salary > 50000
+            ? "C"
+            : "D";
+    };
+
     handleInputChange = (e) => {
-        let {name, value} = e.target;
+        let { name, value } = e.target;
         this.setState({
             newEmployee: {
                 ...this.state.newEmployee,
-                [name]: value
-            }
-        })
-    }
+                [name]: value,
+            },
+        });
+    };
 
     validateInputs = () => {
-        let {empId, empName, salary} = this.state.newEmployee;
+        let { empId, empName, salary } = this.state.newEmployee;
         empId = empId.trim();
         empName = empName.trim();
         salary = salary.trim();
         return new Promise((resolve, reject) => {
-            if(empId !='' && empName !='' && salary !=''){
-                resolve(true)
-            }else {
+            if (empId !== "" && empName !== "" && salary !== "") {
+                resolve(true);
+            } else {
                 reject(false);
             }
-        })
-    }
+        });
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
 
-        this.validateInputs().then((result) => {
-            
-            let {newEmployee, employees} = this.state;
-            employees.push(newEmployee);
-            newEmployee = {
-                empId: '',
-                empName: '',
-                salary: ''
-            }
-            this.setState({employees, newEmployee, showMessage: 2});
-        }).catch((err) => {
-            this.setState({showMessage: 1});
-            console.log("Error occured in validation")
-        })
+        this.validateInputs()
+            .then((result) => {
+                let { newEmployee, employees } = this.state;
+                employees.push(newEmployee);
+                newEmployee = {
+                    empId: "",
+                    empName: "",
+                    salary: "",
+                };
+                this.setState({ employees, newEmployee, showMessage: 2 });
+            })
+            .catch((err) => {
+                this.setState({ showMessage: 1 });
+                console.log("Error occured in validation");
+            });
 
         setTimeout(() => {
-            this.setState({showMessage: 0});
+            this.setState({ showMessage: 0 });
         }, 3000);
-    }
+    };
 
     render() {
         let { employees, newEmployee, showMessage } = this.state;
@@ -85,10 +96,22 @@ class Gridassignment extends Component {
                 <h3>Employees Details</h3>
                 <div className="row p-3">
                     <div className="col-md-4 m-auto">
-                        {showMessage == 1 && (<div className="alert alert-warning">Please check all the inputs and try again!</div>)}
-                        {showMessage == 2 && (<div className="alert alert-success">Employee added Successfully!</div>)}
-                        
-                        <form className="card p-3" method="POST" onSubmit={(e) => this.handleSubmit(e)}>
+                        {showMessage === 1 && (
+                            <div className="alert alert-warning">
+                                Please check all the inputs and try again!
+                            </div>
+                        )}
+                        {showMessage === 2 && (
+                            <div className="alert alert-success">
+                                Employee added Successfully!
+                            </div>
+                        )}
+
+                        <form
+                            className="card p-3"
+                            method="POST"
+                            onSubmit={(e) => this.handleSubmit(e)}
+                        >
                             <label htmlFor="empId">Employee Id</label>
                             <br />
                             <input
@@ -128,7 +151,12 @@ class Gridassignment extends Component {
                                 required
                             />
 
-                            <button type="submit" className="btn btn-success mt-4">Add</button>
+                            <button
+                                type="submit"
+                                className="btn btn-success mt-4"
+                            >
+                                Add
+                            </button>
                         </form>
                     </div>
                     <div className="col-md-8 m-autos">
@@ -138,17 +166,20 @@ class Gridassignment extends Component {
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Salary</th>
+                                    <th>Grade</th>
                                 </tr>
                                 {employees.map((employee, idx) => (
-                                    <tr key={idx}>
+                                    <tr
+                                        key={idx}
+                                        className={this.getBackground(
+                                            employee.salary
+                                        )}
+                                    >
                                         <td>{employee.empId}</td>
                                         <td>{employee.empName}</td>
-                                        <td
-                                            className={this.getBackground(
-                                                employee.salary
-                                            )}
-                                        >
-                                            {employee.salary}
+                                        <td>{employee.salary}</td>
+                                        <td>
+                                            {this.getGrade(employee.salary)}
                                         </td>
                                     </tr>
                                 ))}
