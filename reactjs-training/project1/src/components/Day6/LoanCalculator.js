@@ -30,7 +30,7 @@ const Loancalculator = () => {
                             type="number"
                             value={loanAmt}
                             onChange={(e) =>
-                                setLoanAmt(parseInt(e.target.value))
+                                setLoanAmt(parseFloat(e.target.value))
                             }
                         />
 
@@ -39,7 +39,7 @@ const Loancalculator = () => {
                             className="form-control my-2"
                             type="number"
                             value={years}
-                            onChange={(e) => setYears(parseInt(e.target.value))}
+                            onChange={(e) => setYears(parseFloat(e.target.value))}
                         />
 
                         <button className="btn btn-success my-2">
