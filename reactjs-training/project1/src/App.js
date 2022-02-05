@@ -10,6 +10,10 @@ import ClassCompLifeCycle from "./components/Day5/ClassCompLifeCycle";
 import Formassignment from "./components/Day5/FormAssignment";
 import Gridassignment from "./components/Day5/GridAssignment";
 import Gridfiltering from "./components/Day5/GridFiltering";
+import Basicfunctionalcomp from "./components/Day6/BasicFunctionalComp";
+import Funcomplifecycle from "./components/Day6/FunCompLifeCycle";
+import Loancalculator from "./components/Day6/LoanCalculator";
+import Functionalgrid from "./components/Day6/FunctionalGrid";
 
 function App() {
 
@@ -46,13 +50,24 @@ function App() {
 
             {/* <ClassCompLifeCycle /> */}
 
-            <Gridfiltering />
+            {/* <Gridfiltering />
 
             <hr />
             <Formassignment />
             
             <hr />
-            <Gridassignment />
+            <Gridassignment /> */}
+
+            <Basicfunctionalcomp />
+
+            <hr />
+            <Funcomplifecycle />
+
+            <hr />
+            <Loancalculator />
+
+            <hr />
+            <Functionalgrid />
         </div>
     );
 }
