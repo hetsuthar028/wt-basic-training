@@ -17,7 +17,12 @@ const Assignment = () => {
             status,
             cssType
         }
+        
         setEmployees([...employees, newEmployee])
+        setEmpId('');
+        setEmpName('');
+        setStatus('Active');
+        setCssType('Style');
     }
 
     const getProperty = (type) => {
@@ -58,7 +63,7 @@ const Assignment = () => {
 
                                 <label htmlFor="status">Status:</label>
                                 <select
-                                    className="form-control my-2"
+                                    className="form-select my-2"
                                     name="status"
                                     value={status}
                                     onChange={(e) => {
@@ -72,7 +77,7 @@ const Assignment = () => {
                                 <label htmlFor="cssType">CSS Type:</label>
                                 <select
                                     name="cssType"
-                                    className="form-control my-2"
+                                    className="form-select my-2"
                                     value={cssType}
                                     onChange={(e) => setCssType(e.target.value)}
                                 >
@@ -104,7 +109,12 @@ const Assignment = () => {
                                     <td>{employee.empId}</td>
                                     <td>{employee.empName}</td>
                                     <td
+                                        // Approach 1
                                         {...getProperty(employee.cssType)}
+
+                                        // Approach 2
+                                        // style={employee.cssType === 'Style' && {backgroundColor: 'red'}}
+                                        // className={employee.cssType === 'Class' && 'bg-primary text-white'}
                                     >
                                         {employee.status}
                                     </td>
