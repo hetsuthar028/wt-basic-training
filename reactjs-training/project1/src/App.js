@@ -16,6 +16,7 @@ import Loancalculator from "./components/Day6/LoanCalculator";
 import Functionalgrid from "./components/Day6/FunctionalGrid";
 import Stylecomp from "./components/Day7/StyleComp";
 import Dynamicstyling from "./components/Day7/DynamicStyling";
+import Assignment from "./components/Day7/Assignment";
 
 function App() {
 
@@ -74,6 +75,9 @@ function App() {
             {/* <Stylecomp /> */}
 
             <Dynamicstyling />
+
+            <hr />
+            <Assignment />
         </div>
     );
 }

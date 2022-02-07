@@ -29,7 +29,7 @@ const Dynamicstyling = () => {
                         <th>Select</th>
                     </tr>
                     {clients.map((client, idx) => (
-                        <tr className={client.selected ? 'bg-success': ''}>
+                        <tr className={client.selected ? 'bg-success': ''} key={idx}>
                             <td>{client.clientId}</td>
                             <td>{client.clientName}</td>
                             <td>{client.region}</td>
