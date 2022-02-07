@@ -15,6 +15,7 @@ import Funcomplifecycle from "./components/Day6/FunCompLifeCycle";
 import Loancalculator from "./components/Day6/LoanCalculator";
 import Functionalgrid from "./components/Day6/FunctionalGrid";
 import Stylecomp from "./components/Day7/StyleComp";
+import Dynamicstyling from "./components/Day7/DynamicStyling";
 
 function App() {
 
@@ -70,7 +71,9 @@ function App() {
             <hr />
             <Functionalgrid /> */}
 
-            <Stylecomp />
+            {/* <Stylecomp /> */}
+
+            <Dynamicstyling />
         </div>
     );
 }
