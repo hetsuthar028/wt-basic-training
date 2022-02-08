@@ -13,38 +13,19 @@ class Crudrevised extends Component {
     }
 
     handleChange = (e) => {
-        let {
-            customers,
-            customerId,
-            customerName,
-            customerStatus,
-            customerType,
-        } = this.state;
+        let { customerStatus } = this.state;
         let { name, value } = e.target;
+
         if (name === "customerStatus") {
             value = !customerStatus;
         }
-        // if (name === "customerType") {
-        //     console.log("CustomerType", customerType);
-        //     if (value === "local") {
-        //         customerType = {
-        //             local: true,
-        //             central: false,
-        //         };
-        //     } else {
-        //         customerType = {
-        //             local: false,
-        //             central: true,
-        //         };
-        //     }
-        //     this.setState({ customerType });
-        // }
-        // console.log(name, value);
+
         this.setState({ [name]: value });
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
+        
         let {
             customers,
             customerId,
@@ -54,16 +35,8 @@ class Crudrevised extends Component {
         } = this.state;
 
         let findExistingCustomer = customers.findIndex((customer) => customer.customerId === customerId);
-        console.log("Existing Index", findExistingCustomer);
-        console.log("Existing Record", customers[findExistingCustomer]);
 
         if(findExistingCustomer !== -1){
-            console.log("Type before update", customerType)
-            if(customerType.local === true){
-                customerType = "Local"
-            } else {
-                customerType = "Central"   
-            }
             customers[findExistingCustomer] = {
                 customerId,
                 customerName,
@@ -84,10 +57,8 @@ class Crudrevised extends Component {
         });
     };
 
-    handleEdit = (idx) => {
-        let currentCustomer = this.state.customers[idx];
-        let { customerId, customerName, customerStatus, customerType } =
-            currentCustomer;
+    handleEdit = (currentCustomer, idx) => {
+        let { customerId, customerName, customerStatus, customerType } = currentCustomer;
 
         if (customerType === "Local") {
             customerType = {
@@ -232,7 +203,7 @@ class Crudrevised extends Component {
                                             <button
                                                 className="btn btn-success"
                                                 onClick={() =>
-                                                    this.handleEdit(idx)
+                                                    this.handleEdit(customer, idx)
                                                 }
                                             >
                                                 Edit
