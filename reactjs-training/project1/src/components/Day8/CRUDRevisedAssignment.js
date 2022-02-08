@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 const formInitials = {
-    productCode: '',
+    productCode: 1,
     productName: '',
     category: 0,
     status: false,
@@ -57,6 +57,11 @@ class Crudrevisedassignment extends Component {
         this.setState({products});
     }
 
+    handleReset = (e) => {
+        e.preventDefault();
+        this.setState({newProduct: {...formInitials}});
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         let {products, newProduct} = this.state;
@@ -68,6 +73,7 @@ class Crudrevisedassignment extends Component {
                 ...newProduct
             }
         } else {
+            formInitials.productCode +=1
             products.push(newProduct);
         }
 
@@ -95,7 +101,8 @@ class Crudrevisedassignment extends Component {
                                         placeholder="Please enter product code"
                                         name="productCode"
                                         value={newProduct.productCode}
-                                        onChange={this.handleChange}
+                                        onChange={() => false}
+                                        readOnly
                                         required
                                     />
                                 </div>
@@ -174,8 +181,11 @@ class Crudrevisedassignment extends Component {
                                 </div>
 
                                 <div className="form-group mt-3">
-                                    <button className="btn btn-primary">
+                                    <button className="btn btn-primary mx-2">
                                         Add Product
+                                    </button>
+                                    <button className="btn btn-warning mx-2" onClick={this.handleReset}>
+                                        Reset
                                     </button>
                                 </div>
                             </form>
