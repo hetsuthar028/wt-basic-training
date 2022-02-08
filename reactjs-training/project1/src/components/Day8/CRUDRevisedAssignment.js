@@ -9,12 +9,13 @@ const formInitials = {
 }
 
 const categoryMapping = {
-    0: 'Electronics',
-    1: 'Electrical'
+    0: 'Select Category',
+    1: 'Electronics',
+    2: 'Electrical'
 }
 
 const storeMapping = {
-    0: 'Show Room',
+    0: 'Showroom',
     1: 'Store 1'
 }
 
@@ -26,7 +27,9 @@ class Crudrevisedassignment extends Component {
             products: [],
             newProduct: {
                 ...formInitials
-            }
+            },
+            showWarning: false,
+            warningMessage: '',
         };
     }
 
@@ -65,9 +68,36 @@ class Crudrevisedassignment extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         let {products, newProduct} = this.state;
-        console.log("New Product:", newProduct);
+
+        if(newProduct.productName.toString().trim() === ''){
+            this.setState({showWarning: true, warningMessage: 'Invalid Product Name!'});
+            
+            setTimeout(() => {
+                this.setState({showWarning: false, warningMessage: ''});
+            }, 3500);
+            return;
+        }
+
+        if (newProduct.category === 0){
+            this.setState({showWarning: true, warningMessage: 'Please select a category!'});
+            
+            setTimeout(() => {
+                this.setState({showWarning: false, warningMessage: ''});
+            }, 3500);
+            return;
+        }
+
+        if(newProduct.store === -1){
+            this.setState({showWarning: true, warningMessage: 'Please select a store!'});
+            
+            setTimeout(() => {
+                this.setState({showWarning: false, warningMessage: ''});
+            }, 3500);
+            return;
+        }
 
         let findExistingProduct = products.findIndex((product) => product.productCode == newProduct.productCode);
+        
         if(findExistingProduct !== -1){
             products[findExistingProduct] = {
                 ...newProduct
@@ -82,14 +112,14 @@ class Crudrevisedassignment extends Component {
 
     render() {
 
-        let { products, newProduct } = this.state;
+        let { products, newProduct, showWarning, warningMessage } = this.state;
 
         return (
             <div>
                 <div className="row p-3">
                     <div className="col-md-4 m-auto my-2">
                         <h3>Product Form</h3>
-                        <div className="card p-2 my-3 border-success">
+                        <div className="card shadow-lg p-2 my-3 rounded">
                             <form method="POST" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="productCode">
@@ -125,8 +155,9 @@ class Crudrevisedassignment extends Component {
                                 <div className="form-group">
                                     <label htmlFor="category">Category:</label>
                                     <select className="form-select my-2" onChange={this.handleChange} name="category" value={newProduct.category}>
-                                        <option value={0}>Electronics</option>
-                                        <option value={1}>Electrical</option>
+                                        <option value={0}>Select Category</option>
+                                        <option value={1}>Electronics</option>
+                                        <option value={2}>Electrical</option>
                                     </select>
                                 </div>
 
@@ -158,7 +189,7 @@ class Crudrevisedassignment extends Component {
                                                 className="form-check-label mx-2"
                                                 htmlFor="showRoom"
                                             >
-                                                Show Room
+                                                Showroom
                                             </label>
                                             <br />
                                             <input
@@ -190,12 +221,18 @@ class Crudrevisedassignment extends Component {
                                 </div>
                             </form>
                         </div>
+                        {showWarning && (
+                            <div className="alert alert-warning">
+                                {warningMessage}
+                            </div>
+                        )}
+                        
                     </div>
                     <div className="col-md-8 m-auto my-2">
                         <h3>Product Details</h3>
-                        <table className="my-3">
+                        <table className="my-3 table table-striped">
                             <tbody>
-                                <tr>
+                                <tr className="table-dark">
                                     <th>Code</th>
                                     <th>Name</th>
                                     <th>Category</th>

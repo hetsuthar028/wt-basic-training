@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./ClassComp.css";
+// import "./ClassComp.css";
 import "./ClassExercise.css";
 
 class Classexercise extends Component {
