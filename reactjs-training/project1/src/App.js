@@ -17,6 +17,7 @@ import Functionalgrid from "./components/Day6/FunctionalGrid";
 import Stylecomp from "./components/Day7/StyleComp";
 import Dynamicstyling from "./components/Day7/DynamicStyling";
 import Assignment from "./components/Day7/Assignment";
+import Crudrevised from "./components/Day8/CRUDRevised";
 
 function App() {
 
@@ -74,10 +75,12 @@ function App() {
 
             {/* <Stylecomp /> */}
 
-            <Dynamicstyling />
+            {/* <Dynamicstyling /> */}
 
-            <hr />
-            <Assignment />
+            {/* <hr /> */}
+            {/* <Assignment /> */}
+
+            <Crudrevised />
         </div>
     );
 }
