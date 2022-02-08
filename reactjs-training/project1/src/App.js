@@ -18,6 +18,7 @@ import Stylecomp from "./components/Day7/StyleComp";
 import Dynamicstyling from "./components/Day7/DynamicStyling";
 import Assignment from "./components/Day7/Assignment";
 import Crudrevised from "./components/Day8/CRUDRevised";
+import Crudrevisedassignment from "./components/Day8/CRUDRevisedAssignment";
 
 function App() {
 
@@ -80,7 +81,10 @@ function App() {
             {/* <hr /> */}
             {/* <Assignment /> */}
 
-            <Crudrevised />
+            {/* <Crudrevised /> */}
+
+            {/* <hr /> */}
+            <Crudrevisedassignment />
         </div>
     );
 }
