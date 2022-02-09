@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-class Assignmentd9 extends Component {
+class AssignmentUpdated extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             employees: [],
             departments: [],
+            designations: [],
             selectedDepartment: 0,
+            selectedDesignation: 0,
         };
     }
 
@@ -30,18 +32,56 @@ class Assignmentd9 extends Component {
             .catch((err) => {
                 console.log("Error fetching employees:", err.message);
             });
+
+        axios
+            .get("http://localhost:4000/designation")
+            .then((response) => {
+                this.setState({ designations: response.data });
+            })
+            .catch((err) => {
+                console.log("Error fetching designations:", err.message);
+            });
     }
 
     handleDepartmentChange = (e) => {
         this.setState({ selectedDepartment: e.target.value });
     };
 
+    handleDesignationChange = (e) => {
+        this.setState({ selectedDesignation: e.target.value });
+    };
+
     render() {
-        let { employees, departments, selectedDepartment } = this.state;
+        let {
+            employees,
+            departments,
+            designations,
+            selectedDepartment,
+            selectedDesignation,
+        } = this.state;
 
         return (
             <div className="p-2">
                 <div className="row">
+                    <div className="col-md-3 m-auto my-2">
+                        <h5>Designation</h5>
+                        <select
+                            className="form-select"
+                            name="designation"
+                            value={selectedDesignation}
+                            onChange={this.handleDesignationChange}
+                        >
+                            <option value={0}>All</option>
+                            {designations.map((designation, idx) => (
+                                <option
+                                    key={designation.id}
+                                    value={designation.id}
+                                >
+                                    {designation.designation}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                     <div className="col-md-3 m-auto my-2">
                         <h5>Department:</h5>
                         <select
@@ -72,15 +112,13 @@ class Assignmentd9 extends Component {
                     <tbody>
                         {employees.map((employee, idx) => {
                             return (
-                                (selectedDepartment == employee.departmentId ||
-                                    selectedDepartment == 0) && (
                                     <tr key={employee.id}>
                                         <td>{employee.id}</td>
                                         <td>{employee.name}</td>
                                         <td>{employee.address}</td>
                                         <td>{employee.city}</td>
                                     </tr>
-                                )
+                                
                             );
                         })}
                     </tbody>
@@ -90,4 +128,4 @@ class Assignmentd9 extends Component {
     }
 }
 
-export default Assignmentd9;
+export default AssignmentUpdated;
