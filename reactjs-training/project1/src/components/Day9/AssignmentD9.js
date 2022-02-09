@@ -8,6 +8,7 @@ class Assignmentd9 extends Component {
         this.state = {
             employees: [],
             departments: [],
+            designations: [],
             selectedDepartment: 0,
         };
     }
@@ -30,16 +31,34 @@ class Assignmentd9 extends Component {
             .catch((err) => {
                 console.log("Error fetching employees:", err.message);
             });
+
+        axios.get('http://localhost:4000/designation')
+            .then((response) => {
+                this.setState({ designations: response.data })
+            })
+            .catch((err) => {
+                console.log("Error fetching designations:", err.message);
+            })
     }
 
     handleDepartmentChange = (e) => {
         this.setState({ selectedDepartment: e.target.value });
     };
 
-    render() {
-        let { employees, departments, selectedDepartment } = this.state;
+    getDepartment = (departmentId) => {
+        let data = this.state.departments.filter((dept) => dept.id == departmentId)
+        return data[0].name;
+    }
 
-        return (
+    getDesignation = (designationId) => {
+        let data = this.state.designations.filter((dsgn) => dsgn.id == designationId)
+        return data[0].designation;
+    }
+
+    render() {
+        let { employees, departments, designations, selectedDepartment } = this.state;
+
+        return employees.length && departments.length && designations.length && (
             <div className="p-2">
                 <div className="row">
                     <div className="col-md-3 m-auto my-2">
@@ -67,6 +86,8 @@ class Assignmentd9 extends Component {
                             <th>Name</th>
                             <th>Address</th>
                             <th>City</th>
+                            <th>Department</th>
+                            <th>Designation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,6 +100,8 @@ class Assignmentd9 extends Component {
                                         <td>{employee.name}</td>
                                         <td>{employee.address}</td>
                                         <td>{employee.city}</td>
+                                        <td>{this.getDepartment(employee.departmentId)}</td>
+                                        <td>{this.getDesignation(employee.designationId)}</td>
                                     </tr>
                                 )
                             );
