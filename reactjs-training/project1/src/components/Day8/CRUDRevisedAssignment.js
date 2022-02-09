@@ -78,7 +78,7 @@ class Crudrevisedassignment extends Component {
             return;
         }
 
-        if (newProduct.category === 0){
+        if (newProduct.category == 0){
             this.setState({showWarning: true, warningMessage: 'Please select a category!'});
             
             setTimeout(() => {
