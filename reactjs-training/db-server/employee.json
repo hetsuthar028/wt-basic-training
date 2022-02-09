@@ -1,0 +1,28 @@
+{
+    "employee": [
+        { "id": 1, "name": "Het Suthar", "address": "A1, ABC Street", "city": "Mumbai", "designationId": 1, "departmentId": 1 },
+        { "id": 2, "name": "John Doe", "address": "A2, ABC Street", "city": "New Delhi", "designationId": 3, "departmentId": 2 },
+        { "id": 3, "name": "Kevin Patel", "address": "A3, ABC Street", "city": "Ahmedabad", "designationId": 2, "departmentId": 1 },
+        { "id": 4, "name": "KL Rahul", "address": "A4, ABC Street", "city": "Kota", "designationId": 1, "departmentId": 4 },
+        { "id": 5, "name": "Kriti Gupta", "address": "A7, ABC Street", "city": "Udaipur", "designationId": 3, "departmentId": 1 },
+        { "id": 6, "name": "Nikhil Sharma", "address": "A2, ABC Street", "city": "Kanpur", "designationId": 4, "departmentId": 2 },
+        { "id": 7, "name": "Roshan Singh", "address": "A8, ABC Street", "city": "Chandigarh", "designationId": 1, "departmentId": 2 },
+        { "id": 8, "name": "Ayesha Soni", "address": "A7, ABC Street", "city": "Ahmedabad", "designationId": 5, "departmentId": 4 }
+    ],
+
+    "designation": [
+        {"id": 1, "designation": "Web Developer"},
+        {"id": 2, "designation": "Admin"},
+        {"id": 3, "designation": "DevOps Engineer"},
+        {"id": 4, "designation": "Mobile App Developer"},
+        {"id": 5, "designation": "HR Analyst"}
+    ],
+
+    "departments": [
+        {"id": 1, "name": "Google Maps"},
+        {"id": 2, "name": "Google Search"},
+        {"id": 3, "name": "Google Colab"},
+        {"id": 4, "name": "Human Resource"},
+        {"id": 5, "name": "Cyber Security"}
+    ]
+}
