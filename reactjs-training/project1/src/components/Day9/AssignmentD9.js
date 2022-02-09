@@ -9,7 +9,10 @@ class Assignmentd9 extends Component {
             employees: [],
             departments: [],
             designations: [],
+            filteredRecords: [],
             selectedDepartment: 0,
+            pivot: 0,
+            totalRecords: 0,
         };
     }
 
@@ -26,7 +29,8 @@ class Assignmentd9 extends Component {
         axios
             .get("http://localhost:4000/employee")
             .then((response) => {
-                this.setState({ employees: response.data });
+                let data = response.data;
+                this.setState({ employees: data, filteredRecords: data, totalRecords: data.length });
             })
             .catch((err) => {
                 console.log("Error fetching employees:", err.message);
@@ -38,11 +42,18 @@ class Assignmentd9 extends Component {
             })
             .catch((err) => {
                 console.log("Error fetching designations:", err.message);
-            })
+            });
     }
 
     handleDepartmentChange = (e) => {
-        this.setState({ selectedDepartment: e.target.value });
+        let {value} = e.target;
+
+        let newlyFiltered = this.state.employees.filter((emp) => emp.departmentId == value)
+        if(value == 0){
+            newlyFiltered = [...this.state.employees]
+        }
+
+        this.setState({ selectedDepartment: e.target.value, filteredRecords: newlyFiltered, totalRecords: newlyFiltered.length });
     };
 
     getDepartment = (departmentId) => {
@@ -56,7 +67,7 @@ class Assignmentd9 extends Component {
     }
 
     render() {
-        let { employees, departments, designations, selectedDepartment } = this.state;
+        let { employees, departments, designations, filteredRecords, selectedDepartment } = this.state;
 
         return employees.length && departments.length && designations.length && (
             <div className="p-2">
@@ -91,19 +102,16 @@ class Assignmentd9 extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {employees.map((employee, idx) => {
+                        {filteredRecords.map((employee, idx) => {
                             return (
-                                (selectedDepartment == employee.departmentId ||
-                                    selectedDepartment == 0) && (
-                                    <tr key={employee.id}>
-                                        <td>{employee.id}</td>
-                                        <td>{employee.name}</td>
-                                        <td>{employee.address}</td>
-                                        <td>{employee.city}</td>
-                                        <td>{this.getDepartment(employee.departmentId)}</td>
-                                        <td>{this.getDesignation(employee.designationId)}</td>
-                                    </tr>
-                                )
+                                <tr key={employee.id}>
+                                    <td>{employee.id}</td>
+                                    <td>{employee.name}</td>
+                                    <td>{employee.address}</td>
+                                    <td>{employee.city}</td>
+                                    <td>{this.getDepartment(employee.departmentId)}</td>
+                                    <td>{this.getDesignation(employee.designationId)}</td>
+                                </tr>
                             );
                         })}
                     </tbody>
