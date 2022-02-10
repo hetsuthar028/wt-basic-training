@@ -13,6 +13,7 @@ class Assignmentd9 extends Component {
             selectedDepartment: 0,
             pivot: 0,
             totalRecords: 0,
+            recordsPerPage: 5,
         };
     }
 
@@ -53,7 +54,7 @@ class Assignmentd9 extends Component {
             newlyFiltered = [...this.state.employees]
         }
 
-        this.setState({ selectedDepartment: e.target.value, filteredRecords: newlyFiltered, totalRecords: newlyFiltered.length });
+        this.setState({ selectedDepartment: e.target.value, filteredRecords: newlyFiltered, totalRecords: newlyFiltered.length, pivot: 0 });
     };
 
     getDepartment = (departmentId) => {
@@ -66,8 +67,12 @@ class Assignmentd9 extends Component {
         return data[0].designation;
     }
 
+    handlePivotChange = (idx) => {
+        this.setState({pivot: idx * this.state.recordsPerPage});
+    }
+
     render() {
-        let { employees, departments, designations, filteredRecords, selectedDepartment } = this.state;
+        let { employees, departments, designations, filteredRecords, selectedDepartment, totalRecords, recordsPerPage, pivot } = this.state;
 
         return employees.length && departments.length && designations.length && (
             <div className="p-2">
@@ -102,7 +107,7 @@ class Assignmentd9 extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredRecords.map((employee, idx) => {
+                        {filteredRecords.slice(pivot, pivot + recordsPerPage).map((employee, idx) => {
                             return (
                                 <tr key={employee.id}>
                                     <td>{employee.id}</td>
@@ -116,6 +121,13 @@ class Assignmentd9 extends Component {
                         })}
                     </tbody>
                 </table>
+                <div className="row">
+                    <div className="col-md-5 m-auto">
+                        {[...Array(Math.ceil(totalRecords / recordsPerPage))].map((a, idx) => (
+                            <button key={idx} className="btn btn-primary mx-1" onClick={() => this.handlePivotChange(idx)}>{idx + 1}</button>
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }
