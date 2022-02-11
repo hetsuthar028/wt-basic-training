@@ -8,6 +8,7 @@ import Services from "../components/Day11/Services";
 import Addemployee from "../components/Day10/AddEmployee";
 import Updateemployee2 from "../components/Day10/UpdateEmployee2";
 import Vendors from "../components/Day10/Vendors";
+import Getemployee from "../components/Day11/GetEmployee";
 
 class Routerbasics extends Component {
     render() {
@@ -32,7 +33,7 @@ class Routerbasics extends Component {
                 </ul>
                 
                 <br />
-                
+
                 <ul
                     style={{ listStyleType: "none", display: "inline-flex" }}
                     className="my-2"
@@ -57,10 +58,13 @@ class Routerbasics extends Component {
                     <Route path="/contactus" element={<Contactus />} />
                     <Route path="/vendors" element={<Vendors />} />
                     <Route path="/add-employee" element={<Addemployee />} />
-                    <Route
-                        path="/update-employee"
-                        element={<Updateemployee2 />}
-                    />
+                    <Route path="/update-employee" element={<Updateemployee2 />}/>
+
+                    {/* Passing params with the URL */}
+                    <Route path="/employee/:employeeId" element={<Getemployee />}/>
+
+                    {/* Invalid Route Handling */}
+                    <Route path="*" element={<h3 className="text-warning">Oops! Page not found! ⚠️</h3>} />
                 </Routes>
             </Router>
         );
