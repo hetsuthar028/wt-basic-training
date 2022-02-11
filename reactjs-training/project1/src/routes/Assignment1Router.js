@@ -5,6 +5,7 @@ import Home from "../components/Day11/Home";
 import Asgn1clientdata from "../components/Day11/Asgn1ClientData";
 import Leftnav from "../components/Day11/LeftNav";
 import Vendors from "../components/Day10/Vendors";
+import Errormessage from "../components/Day11/ErrorMessage";
 
 const Assignment1router = () => {
     return (
@@ -24,6 +25,7 @@ const Assignment1router = () => {
                                 />
                             </Route>
                             <Route path="/vendors" element={<Vendors />} />
+                            <Route path="*" element={<Errormessage />} />
                         </Routes>
                     </div>
                 </div>

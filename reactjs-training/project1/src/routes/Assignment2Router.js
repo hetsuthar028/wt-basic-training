@@ -1,10 +1,11 @@
-import React, { version } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Leftnav from '../components/Day11/LeftNav';
 import Home from '../components/Day11/Home';
 import Asgn2clientdata from '../components/Day11/Asgn2ClientData';
 import Vendors from '../components/Day10/Vendors';
 import Assignment2 from '../components/Day11/Assignment2';
+import Errormessage from '../components/Day11/ErrorMessage';
 
 const Assignment2router = () => {
     return (
@@ -21,6 +22,7 @@ const Assignment2router = () => {
                                 <Route path=':clientId' element={<Asgn2clientdata />} />
                             </Route>
                             <Route path='/vendors' element={<Vendors />} />
+                            <Route path='*' element={<Errormessage />} />
                         </Routes>
                     </div>
                 </div>

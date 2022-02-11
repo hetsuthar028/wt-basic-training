@@ -6,8 +6,8 @@ function App() {
     return (
         <div className="App">
             <div className="row mt-3">
-                {/* <Assignment1router /> */}
-                <Assignment2router />
+                <Assignment1router />
+                {/* <Assignment2router /> */}
             </div>
         </div>
     );
