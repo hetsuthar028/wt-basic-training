@@ -7,6 +7,7 @@ import Updateemployee2 from "./components/Day10/UpdateEmployee2";
 import Vendors from "./components/Day10/Vendors";
 import AssignmentD9 from './components/Day9/AssignmentD9'
 import AssignmentUpdated from "./components/Day9/AssignmentUpdated";
+import Routerbasics from "./routes/RouterBasics";
 
 function App() {
 
@@ -20,7 +21,8 @@ function App() {
             {/* <DeleteEmployee /> */}
             {/* <Updateemployee /> */}
             {/* <Updateemployee2 /> */}
-            <Vendors />
+            {/* <Vendors /> */}
+            <Routerbasics />
         </div>
     );
 }
