@@ -1,0 +1,12 @@
+{
+    "clients": [
+        { "id": 1, "name": "A1 Pvt Ltd.", "phone": 91827397498, "area": "ABC" },
+        { "id": 2, "name": "A2 Pvt Ltd.", "phone": 11928301293, "area": "QWE" },
+        { "id": 3, "name": "A3 Pvt Ltd.", "phone": 93874928734, "area": "ABC" },
+        { "id": 4, "name": "A4 Pvt Ltd.", "phone": 21639183493, "area": "SDF" },
+        { "id": 5, "name": "A5 Pvt Ltd.", "phone": 18273746333, "area": "RTY" },
+        { "id": 7, "name": "A7 Pvt Ltd.", "phone": 91827397498, "area": "ABC" },
+        { "id": 8, "name": "A8 Pvt Ltd.", "phone": 11928301293, "area": "QWE" },
+        { "id": 9, "name": "A9 Pvt Ltd.", "phone": 93874928734, "area": "ABC" }
+    ]
+}
