@@ -1,12 +1,12 @@
 {
     "clients": [
-        { "id": 1, "name": "A1 Pvt Ltd.", "phone": 91827397498, "area": "ABC" },
-        { "id": 2, "name": "A2 Pvt Ltd.", "phone": 11928301293, "area": "QWE" },
-        { "id": 3, "name": "A3 Pvt Ltd.", "phone": 93874928734, "area": "ABC" },
-        { "id": 4, "name": "A4 Pvt Ltd.", "phone": 21639183493, "area": "SDF" },
-        { "id": 5, "name": "A5 Pvt Ltd.", "phone": 18273746333, "area": "RTY" },
-        { "id": 7, "name": "A7 Pvt Ltd.", "phone": 91827397498, "area": "ABC" },
-        { "id": 8, "name": "A8 Pvt Ltd.", "phone": 11928301293, "area": "QWE" },
-        { "id": 9, "name": "A9 Pvt Ltd.", "phone": 93874928734, "area": "ABC" }
+        { "id": 1, "name": "A1 Pvt Ltd.", "phone": 91827397498, "area": "ABC", "project": "Eduhack", "budget": "$4000", "platform": "Web Browsers", "startingDate": "12/02/2022", "endingDate": "12/05/2022", "poc": "Kapil Sharma" },
+        { "id": 2, "name": "A2 Pvt Ltd.", "phone": 11928301293, "area": "QWE", "project": "CRM", "budget": "$10000", "platform": "Web Browsers", "startingDate": "25/02/2022", "endingDate": "23/01/2023", "poc": "Priti Gupta"},
+        { "id": 3, "name": "A3 Pvt Ltd.", "phone": 93874928734, "area": "ABC", "project": "Farming App", "budget": "$2500", "platform": "Mobile Devices", "startingDate": "09/03/2022", "endingDate": "01/10/2022", "poc": "Kapil Sharma" },
+        { "id": 4, "name": "A4 Pvt Ltd.", "phone": 21639183493, "area": "SDF", "project": "Student Management System", "budget": "$1000", "platform": "Windows 7*", "startingDate": "21/04/2022", "endingDate": "17/07/2022", "poc": "Kapil Sharma" },
+        { "id": 5, "name": "A5 Pvt Ltd.", "phone": 18273746333, "area": "RTY", "project": "Face Detection", "budget": "$3000", "platform": "Android", "startingDate": "27/02/2022", "endingDate": "12/09/2022", "poc": "Kapil Sharma" },
+        { "id": 7, "name": "A7 Pvt Ltd.", "phone": 91827397498, "area": "ABC", "project": "Eduhack", "budget": "$4000", "platform": "Web Browsers", "startingDate": "12/02/2022", "endingDate": "12/05/2022", "poc": "Kapil Sharma" },
+        { "id": 8, "name": "A8 Pvt Ltd.", "phone": 11928301293, "area": "QWE", "project": "Eduhack", "budget": "$4000", "platform": "Web Browsers", "startingDate": "12/02/2022", "endingDate": "12/05/2022", "poc": "Kapil Sharma" },
+        { "id": 9, "name": "A9 Pvt Ltd.", "phone": 93874928734, "area": "ABC", "project": "Eduhack", "budget": "$4000", "platform": "Web Browsers", "startingDate": "12/02/2022", "endingDate": "12/05/2022", "poc": "Kapil Sharma" }
     ]
 }
