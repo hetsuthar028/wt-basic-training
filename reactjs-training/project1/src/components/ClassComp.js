@@ -1,5 +1,5 @@
 import React from 'react';
-import './ClassComp.css';
+// import './ClassComp.css';
 
 class ClassComp extends React.Component {
     constructor(){

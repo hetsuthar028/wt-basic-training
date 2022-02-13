@@ -1,0 +1,34 @@
+{
+  "vendor": [
+    {
+      "id": "1",
+      "vendorName": "QWE 1e378",
+      "contact": "1230171023",
+      "type": true
+    },
+    {
+      "id": "2",
+      "vendorName": "AER 7b283",
+      "contact": "3498756196",
+      "type": false
+    },
+    {
+      "id": "3",
+      "vendorName": "ASH 7s938",
+      "contact": "8723918273",
+      "type": true
+    },
+    {
+      "id": "4",
+      "vendorName": "ASJ 1j348",
+      "contact": "8321749124",
+      "type": true
+    },
+    {
+      "id": "5",
+      "vendorName": "aldlaks",
+      "contact": "1289312837",
+      "type": true
+    }
+  ]
+}
