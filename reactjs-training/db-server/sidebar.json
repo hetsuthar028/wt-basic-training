@@ -1,0 +1,8 @@
+{
+    "sidebars": [
+        {"id": 1, "menuName": "Dashboard", "url": "/dashboard"},
+        {"id": 2, "menuName": "Employee", "url": "/employee"},
+        {"id": 3, "menuName": "Admin", "url": "/admin"},
+        {"id": 4, "menuName": "Settings", "url": "/settings"}
+    ]
+}

@@ -37,7 +37,7 @@ const Assignment121 = () => {
                 </thead>
                 <tbody>
                     {clients.map((client) => (
-                        <>
+                        <React.Fragment key={client.id}>
                             <tr key={client.id}>
                                 <td>{client.id}</td>
                                 <td>{client.name}</td>
@@ -49,12 +49,12 @@ const Assignment121 = () => {
                                 <tr className='bg-warning'>
                                     <td><b>Project: </b>{client.project}</td>
                                     <td><b>Platform: </b>{client.platform}</td>
-                                    <td><b>Bidget: </b>{client.budget}</td>
+                                    <td><b>Budget: </b>{client.budget}</td>
                                     <td><b>POC: </b>{client.poc}</td>
                                     <td><b>Ending Date: </b>{client.endingDate}</td>
                                 </tr>
                             )}
-                        </>
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>

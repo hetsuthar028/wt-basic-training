@@ -6,7 +6,7 @@ import Routerd12 from "./routes/RouterD12";
 function App() {
     return (
         <div className="App">
-            <div className="row mt-3">
+            <div className="row">
                 {/* <Assignment1router /> */}
                 {/* <Assignment2router /> */}
                 <Routerd12 />

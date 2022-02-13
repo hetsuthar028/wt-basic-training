@@ -4,18 +4,35 @@
             "id": 1, 
             "username": "Admin",
             "password": "pwd1",
+            "admin": true,
             "status": "active"
         },
         {
             "id": 2, 
             "username": "Admin2",
             "password": "pwd2",
+            "admin": true,
             "status": "disabled"
         },
         {
             "id": 3, 
             "username": "Admin3",
             "password": "pwd3",
+            "admin": true,
+            "status": "active"
+        },
+        {
+            "id": 4, 
+            "username": "hetsuthar028",
+            "password": "pwdHet028",
+            "admin": false,
+            "status": "active"
+        },
+        {
+            "id": 5, 
+            "username": "het",
+            "password": "het028",
+            "admin": false,
             "status": "active"
         }
     ]
