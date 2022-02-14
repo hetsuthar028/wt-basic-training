@@ -9,6 +9,7 @@ const Login = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [allUsers, setAllUsers] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
 
@@ -40,6 +41,10 @@ const Login = (props) => {
             navigate("/dashboard");
         } else {
             console.log("Not Verified");
+            setErrorMessage("Invalid credentials!");
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 3500);
         }
     };
 
@@ -69,6 +74,10 @@ const Login = (props) => {
                                     placeholder="Please enter password"
                                     onInputChange={(e) => setPassword(e.target.value)}
                                 />
+                            </div>
+
+                            <div className="form-group my-1">
+                                {errorMessage && <p className="text-danger">{errorMessage}</p>}
                             </div>
 
                             <div className="form-group my-3">
