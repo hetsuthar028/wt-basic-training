@@ -1,4 +1,5 @@
 import "./App.css";
+import Addemployeeredux from "./components/Day13/AddEmployeeRedux";
 import DemoHOC from "./components/Day13/DemoHOC";
 import Assignment1router from "./routes/Assignment1Router";
 import Assignment2router from "./routes/Assignment2Router";
@@ -11,7 +12,8 @@ function App() {
                 {/* <Assignment1router /> */}
                 {/* <Assignment2router /> */}
                 {/* <Routerd12 /> */}
-                <DemoHOC />
+                {/* <DemoHOC /> */}
+                <Addemployeeredux />
             </div>
         </div>
     );
