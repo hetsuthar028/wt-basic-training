@@ -10,10 +10,16 @@ const Addemployeeredux = () => {
         console.log(store.getState());
     }
 
+    const handleGetData = () => {
+        console.log(store.getState());
+    }
+
     return (
         <div>
             <h3>Add Employee</h3>
             <Button onClick={handleButtonClick}>Add</Button>
+            <br /><br />
+            <Button onClick={handleGetData}>Get</Button>
         </div>
     );
 }
