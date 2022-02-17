@@ -43,7 +43,7 @@ const url = "mongodb://localhost:27017/";
 //         throw err;
 //     }
 //     let dbase = db.db('api-training');
-//     let dummyRecords = [{name: "ABC", age: 21, marks: 89}, {name: "KJASD", age: 20, marks: 94}]
+//     let dummyRecords = [{name: "ABC", age: 21, marks: 89}, {name: "Prakash", age: 22, marks: 85}, {name: "Bharat", age: 22, marks: 90}]
 
 //     dbase.collection('students').insertMany(dummyRecords, (err, res) => {
 //         if(err){
@@ -115,19 +115,74 @@ const url = "mongodb://localhost:27017/";
 
 
 // Delete one document
-mongodb.connect(url, (err, db) => {
-    if(err){
-        throw err
-    }
+// mongodb.connect(url, (err, db) => {
+//     if(err){
+//         throw err
+//     }
 
-    let dbase = db.db('api-training');
-    dbase.collection('students').deleteOne({name: 'ABC'})
-        .then((result) => {
-            console.log(result);
-            db.close();
-        })
-        .catch((err) => {
-            console.log(err)
-            throw err;
-        })
-});
+//     let dbase = db.db('api-training');
+//     dbase.collection('students').deleteOne({name: 'ABC'})
+//         .then((result) => {
+//             console.log(result);
+//             db.close();
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//             throw err;
+//         })
+// });
+
+
+
+// @Homework - Update One
+// mongodb.connect(url, (err, db) => {
+//     if(err){
+//         throw err
+//     }
+
+//     let dbase = db.db('api-training');
+//     dbase.collection('students').updateOne({marks: {$gt: 90}}, {$set: {"grade": "A"}})
+//         .then((result) => {
+//             console.log("Update Result --", result);
+//             db.close();
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//         })
+// })
+
+
+// @Homework - Update Many
+// mongodb.connect(url, (err, db) => {
+//     if(err){
+//         throw err
+//     }
+
+//     let dbase = db.db('api-training');
+//     dbase.collection('students').updateMany({marks: {$gte: 90}}, {$set: {"grade": "A"}})
+//         .then((result) => {
+//             console.log("Update Many Result --", result);
+//             db.close();
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//         });
+// });
+
+
+// @Homework - Delete Many
+// mongodb.connect(url, (err, db) => {
+//     if(err){
+//         throw err
+//     }
+
+//     let dbase = db.db('api-training');
+//     dbase.collection('students').deleteMany({age: {$gte: 22}})
+//         .then((result) => {
+//             console.log("Delete Many Result --", result);
+//             db.close();
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         });
+// });
