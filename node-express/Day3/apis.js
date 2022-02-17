@@ -67,7 +67,6 @@ app.delete('/delete/user/:id', (req, res) => {
         data = JSON.parse(data);
         delete data["user" + req.params.id];
 
-        // homework
         fs.writeFile('./users.json', JSON.stringify(data), (writeErr) => {
             if(writeErr){
                 console.log("Error writing the user:", writeErr)
