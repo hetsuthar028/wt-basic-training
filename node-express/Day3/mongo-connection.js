@@ -1,18 +1,25 @@
 const { MongoClient } = require('mongodb');
 
 const createMongoConnection = async () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017/api-training');
+    const mongoClient = new MongoClient('mongodb://localhost:27017/');
     await mongoClient.connect();
     return mongoClient
 }
 
-let something = createMongoConnection();
-something.then((connection) => {
-    console.log(connection)
-})
-.catch((err) => {
-    console.log("Error in connection", err);
-})
+module.exports = createMongoConnection();
+
+// let something = createMongoConnection();
+// something.then((connection) => {
+//     connection.db('api-training').collection('students').find({})
+//         .toArray()
+//         .then((results) => {
+//             console.log(results)
+//             connection.close();
+//         })
+// })
+// .catch((err) => {
+//     console.log("Error in connection", err);
+// })
 
 // const collection = mongoClient.db().collection('students')
 
