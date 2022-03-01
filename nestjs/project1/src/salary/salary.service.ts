@@ -9,6 +9,6 @@ export class SalaryService {
     }
 
     calculateSalary(salaryData: SalaryDto): number {
-        return salaryData.monthlySalary * 12 * (salaryData.workingDays/20);
+        return salaryData.monthlySalary * (salaryData.workingDays/20);
     }
 }

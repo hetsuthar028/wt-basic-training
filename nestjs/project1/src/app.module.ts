@@ -9,7 +9,7 @@ import { StudentService } from './students.service';
 import { UserService } from './user.service';
 
 @Module({
-  imports: [EmployeeModule, SalaryModule],
+  imports: [ClientModule, EmployeeModule, SalaryModule],
   controllers: [AppController],
   providers: [AppService, UserService, StudentService, GlobalLoggerService],
 })

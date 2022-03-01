@@ -15,12 +15,6 @@ export class ClientService {
     }
 
     addClient(): CLientDto{
-        // let newClient = new CLientDto()
-        // newClient.clientName = 'A1 Pvt. Ltd';
-        // newClient.address = "Mumbai, Maharashtra"
-        // newClient.phone = 123345456,
-        // newClient.areacode = 400020
-
         return this.newClient
     }
 }
