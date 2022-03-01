@@ -22,23 +22,38 @@ export class AppController {
     return this.userService.getMyDetails();
   }
 
-  @Get('add/:studentName')
-  addStudent(@Param('studentName') studentName: string): string{
-    return this.studentService.addNewStudent(studentName);
+  @Get('add/student')
+  addStudent(): string{
+    return this.studentService.addNewStudent();
   }
 
-  @Get('edit/:studentName')
-  editStudent(@Param('studentName') studentName: string): string {
-    return this.studentService.editStudent(studentName);
+  @Get('edit/student')
+  editStudent(): string {
+    return this.studentService.editStudent();
   }
 
-  @Get('delete/:studentName')
-  deleteStudent(@Param('studentName') studentName: string): string{
-    return this.studentService.deleteStudent(studentName);
+  @Get('delete/student')
+  deleteStudent(): string{
+    return this.studentService.deleteStudent();
   }
 
-  @Get('/get/all')
+  @Get('get/all')
   getAllStudents(): string[]{
     return this.studentService.getAllStudents();
   }
+
+  // @Get('add/:studentName')
+  // addStudent(@Param('studentName') studentName: string): string{
+  //   return this.studentService.addNewStudent(studentName);
+  // }
+
+  // @Get('edit/:studentName')
+  // editStudent(@Param('studentName') studentName: string): string {
+  //   return this.studentService.editStudent(studentName);
+  // }
+
+  // @Get('delete/:studentName')
+  // deleteStudent(@Param('studentName') studentName: string): string{
+  //   return this.studentService.deleteStudent(studentName);
+  // }
 }

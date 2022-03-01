@@ -2,19 +2,31 @@ import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class StudentService {
-    addNewStudent(studentName: string): string{
-        return `${studentName.toUpperCase()} added.`
+    addNewStudent(): string{
+        return `John Doe added.`
     }
 
-    editStudent(studentName: string): string{
-        return `${studentName.toUpperCase()}'s details edited.`;
+    editStudent(): string{
+        return `John Doe's details edited.`;
     }
 
-    deleteStudent(studentName: string): string{
-        return `${studentName.toUpperCase()}'s records deleted.`;
+    deleteStudent(): string{
+        return `John Doe's records deleted.`;
     }
-
+    
     getAllStudents(): string[]{
         return ["Raj Singh", "Mohit Sharma", "Aditi Singh"];
     }
+
+    // addNewStudent(studentName: string): string{
+    //     return `${studentName.toUpperCase()} added.`
+    // }
+
+    // editStudent(studentName: string): string{
+    //     return `${studentName.toUpperCase()}'s details edited.`;
+    // }
+
+    // deleteStudent(studentName: string): string{
+    //     return `${studentName.toUpperCase()}'s records deleted.`;
+    // }    
 }
