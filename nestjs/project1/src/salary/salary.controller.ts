@@ -14,7 +14,12 @@ export class SalaryController {
 
     @Post('calculate')
     calculateSalary(@Body() salary: SalaryDto): number {
-        this.loggerService.logAction('Calculate salary', 'Salary');
+        this.loggerService.logAction(salaryActions.CALCULATE, salaryActions.MODULE_NAME);
         return this.salaryService.calculateSalary(salary);
     }
+}
+
+enum salaryActions {
+    CALCULATE = "CALCULATE SALARY",
+    MODULE_NAME = "SALARY"
 }

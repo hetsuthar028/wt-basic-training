@@ -11,6 +11,6 @@ import { UserService } from './user.service';
 @Module({
   imports: [ClientModule, EmployeeModule, SalaryModule],
   controllers: [AppController],
-  providers: [AppService, UserService, StudentService, GlobalLoggerService],
+  providers: [AppService, UserService, StudentService],
 })
 export class AppModule {}
