@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Delete, Put } from "@nestjs/common";
 import { VendorDto } from "./dto/vendor.dto";
 import { VendorService } from "./vendor.service";
 
@@ -24,5 +24,10 @@ export class VendorController {
     @Delete(':id')
     deleteVendor(@Param('id') vendorId: string){
         return this.vendorService.deleteVendor(vendorId);
+    }
+
+    @Put(':id')
+    updateVendor(@Param('id') vendorId: string, @Body() dataToUpdate: VendorDto){
+        return this.vendorService.updateVendor(vendorId, dataToUpdate);
     }
 }
