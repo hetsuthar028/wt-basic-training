@@ -24,4 +24,12 @@ export class QuestionService{
     async getQuestion(questionId: string){
         return await this.questionModel.findById(questionId);
     }
+
+    async deleteQuestion(questionId: string){
+        return await this.questionModel.deleteOne({_id: questionId});
+    }
+
+    async updateQuestion(questionId: string, fieldsToUpdate: QuestionDto){
+        return await this.questionModel.findOneAndUpdate({_id: questionId}, {$set: fieldsToUpdate});
+    }
 }

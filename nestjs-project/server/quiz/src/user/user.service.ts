@@ -29,4 +29,8 @@ export class UserService {
         return false;
     }
 
+    async deleteUser(email: string){
+        return await this.userModel.deleteOne({email: email});
+    }
+
 }
