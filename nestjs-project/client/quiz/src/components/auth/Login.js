@@ -33,7 +33,7 @@ const Login = (props) => {
             <div className="row m-0">
                 <div className="col-md-4 m-auto">
                     <div className="card p-3"  style={{margin: "100px 0"}}>
-                        <h3>Quiz App - Login</h3>
+                        <h3 className="text-primary">Quiz App - Login</h3>
                         <form method="POST" onSubmit={handleFormSubmit}>
                             <div className="form-group my-3">
                                 <label htmlFor="email" className="my-2">
@@ -45,6 +45,7 @@ const Login = (props) => {
                                     name="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="form-group my-3">
@@ -55,6 +56,7 @@ const Login = (props) => {
                                     name="password"
                                     alue={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    required
                                 />
                             </div>
 

@@ -7,6 +7,9 @@ const Signup = (props) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [errors, setErrors] = useState({});
+    const [hasErrors, setHasErrors] = useState(true);
+
     const navigate = useNavigate();
 
     const handleFormSubmit = (e) => {
