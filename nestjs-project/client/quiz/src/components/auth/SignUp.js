@@ -1,22 +1,31 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [errors, setErrors] = useState({});
+    const [hasErrors, setHasErrors] = useState(true);
+
+    const navigate = useNavigate();
+
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        props.setIsLoggedIn(true);
         
-        axios.post('http://localhost:4000/add', {
+        if(password !==confirmPassword){
+            return window.alert("Passwords does not match!");
+        }
+
+        axios.post('http://localhost:4000/user/add', {
             "email": email,
             "password": password,
         })
         .then((response) => {
             console.log(response.data);
+            return navigate('/');
         })
         .catch((err) => {
             console.log(err.response.data);
